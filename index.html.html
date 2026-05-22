@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Value Investing — Contrapposto Research</title>
+<style>
+:root[data-theme="dark"]{
+  --bg:#0a0e1a;--bg2:#0f1526;--bg3:#161d35;--bg4:#1e2744;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --text:#eef0f6;--text2:#8892aa;--text3:#4a5270;
+  --blue:#4a7fd4;--blue2:#6b9fe8;--blue-bg:rgba(74,127,212,0.12);
+  --gold:#c9a227;--gold2:#e8bc40;--gold-bg:rgba(201,162,39,0.1);
+  --green:#3dba7c;--green-bg:rgba(61,186,124,0.1);
+  --red:#e05252;--red-bg:rgba(224,82,82,0.1);
+  --purple:#9b7fe8;--purple-bg:rgba(155,127,232,0.1);
+  --teal:#3dbaba;--teal-bg:rgba(61,186,186,0.1);
+  --nav:rgba(10,14,26,0.94);
+  --shadow:0 4px 24px rgba(0,0,0,0.5);
+}
+:root[data-theme="light"]{
+  --bg:#f5f7fc;--bg2:#ffffff;--bg3:#eef1f8;--bg4:#e4e9f5;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.16);
+  --text:#0d1229;--text2:#4a5270;--text3:#8892aa;
+  --blue:#1a4fa0;--blue2:#2b6bcb;--blue-bg:rgba(26,79,160,0.08);
+  --gold:#8a6d0a;--gold2:#b08d1a;--gold-bg:rgba(138,109,10,0.08);
+  --green:#1a7a4a;--green-bg:rgba(26,122,74,0.08);
+  --red:#b03030;--red-bg:rgba(176,48,48,0.08);
+  --purple:#5a3ab0;--purple-bg:rgba(90,58,176,0.08);
+  --teal:#0d7a7a;--teal-bg:rgba(13,122,122,0.08);
+  --nav:rgba(245,247,252,0.94);
+  --shadow:0 4px 24px rgba(0,0,0,0.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Georgia',serif;font-size:16px;line-height:1.7;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.nav-logo{font-size:13px;font-weight:700;letter-spacing:0.1em;color:var(--blue2);text-transform:uppercase;}
+.nav-sub{font-size:10px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;}
+.nav-links{display:flex;gap:1.5rem;}
+.nav-links a{font-size:11px;letter-spacing:0.07em;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:transparent;cursor:pointer;color:var(--text2);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.theme-btn:hover{background:var(--bg3);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 5rem 5rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-200px;right:-150px;width:700px;height:700px;background:radial-gradient(circle,rgba(74,127,212,0.07) 0%,transparent 70%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-100px;left:0;width:500px;height:500px;background:radial-gradient(circle,rgba(201,162,39,0.05) 0%,transparent 70%);pointer-events:none;}
+.eyebrow{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue2);margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem;}
+.eyebrow::after{content:'';width:60px;height:1px;background:var(--blue2);opacity:.5;}
+.hero-title{font-size:clamp(38px,6vw,82px);font-weight:400;line-height:1.08;color:var(--text);margin-bottom:1.5rem;max-width:900px;}
+.hero-title em{font-style:italic;color:var(--gold2);}
+.hero-desc{font-size:17px;color:var(--text2);max-width:580px;line-height:1.75;margin-bottom:3rem;}
+.hero-stats{display:flex;gap:3.5rem;flex-wrap:wrap;}
+.stat-num{font-size:38px;font-weight:400;color:var(--text);display:block;}
+.stat-lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);}
+.brand-stripe{height:5px;background:linear-gradient(90deg,#1a4fa0 60%,#c9a227 100%);margin-top:3rem;width:120px;border-radius:3px;}
+
+/* TABS */
+.sticky-tabs{position:sticky;top:58px;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;gap:0;overflow-x:auto;}
+.stab{padding:14px 22px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text2);cursor:pointer;border:none;background:transparent;font-family:'Georgia',serif;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.stab:hover{color:var(--text);background:var(--bg3);}
+.stab.active{color:var(--blue2);border-bottom-color:var(--blue2);}
+
+/* SECTION */
+.section{padding:5rem 5rem;max-width:1200px;margin:0 auto;}
+.section-eye{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.section-title{font-size:clamp(26px,4vw,46px);font-weight:400;color:var(--text);margin-bottom:.75rem;}
+.section-desc{font-size:15px;color:var(--text2);max-width:600px;line-height:1.75;margin-bottom:3rem;}
+.divider{height:1px;background:var(--border);margin:0 5rem;}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:border-color .2s,transform .2s;}
+.card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.card-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.card-title{font-size:18px;font-weight:400;color:var(--text);margin-bottom:.5rem;}
+.card-body{font-size:13px;color:var(--text2);line-height:1.65;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}.section,.divider{padding-left:1.5rem;padding-right:1.5rem;}nav{padding:0 1.5rem;}.nav-links{display:none;}.hero{padding:100px 1.5rem 3rem;}}
+
+/* GRAHAM SCREENS */
+.screen-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);margin-bottom:8px;transition:border-color .2s;}
+.screen-item:hover{border-color:var(--border2);}
+.screen-num{font-size:22px;font-weight:400;color:var(--blue2);min-width:36px;line-height:1;}
+.screen-content{}
+.screen-title{font-size:14px;color:var(--text);font-weight:400;margin-bottom:3px;}
+.screen-explain{font-size:12px;color:var(--text2);line-height:1.5;}
+.screen-formula{font-size:12px;color:var(--gold2);font-family:monospace;margin-top:4px;padding:4px 8px;background:var(--gold-bg);border-radius:4px;display:inline-block;}
+
+/* ACCORDION */
+.acc-item{border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;}
+.acc-header{padding:1.1rem 1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--bg2);transition:background .15s;}
+.acc-header:hover{background:var(--bg3);}
+.acc-title{font-size:16px;color:var(--text);}
+.acc-arrow{color:var(--text3);font-size:18px;transition:transform .25s;}
+.acc-item.open .acc-arrow{transform:rotate(180deg);}
+.acc-body{display:none;padding:1.5rem;border-top:1px solid var(--border);background:var(--bg2);}
+.acc-item.open .acc-body{display:block;}
+
+/* FORMULA BOX */
+.formula-box{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--blue2);border-radius:10px;padding:1.25rem 1.5rem;margin:1rem 0;font-family:monospace;font-size:14px;color:var(--blue2);}
+.formula-lbl{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);font-family:'Georgia',serif;margin-bottom:.5rem;}
+
+/* MOAT TYPES */
+.moat-card{padding:1.5rem;border-radius:12px;border:1px solid var(--border);background:var(--bg2);}
+.moat-icon{font-size:28px;margin-bottom:.75rem;}
+.moat-name{font-size:16px;color:var(--text);margin-bottom:.4rem;}
+.moat-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:.75rem;}
+.moat-examples{font-size:12px;color:var(--text3);font-style:italic;}
+
+/* INTERACTIVE DCF */
+.dcf-slider-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.dcf-label{font-size:13px;color:var(--text2);min-width:160px;}
+.dcf-slider{flex:1;}
+.dcf-val{font-size:14px;font-weight:400;color:var(--text);min-width:50px;text-align:right;}
+.dcf-result{padding:1.5rem;background:var(--blue-bg);border:1px solid var(--blue2);border-radius:12px;text-align:center;margin-top:1.5rem;}
+.dcf-result-num{font-size:40px;font-weight:400;color:var(--blue2);}
+.dcf-result-lbl{font-size:12px;color:var(--text2);margin-top:4px;}
+.dcf-margin{margin-top:1rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.dcf-margin-item{padding:8px 16px;border-radius:8px;font-size:13px;}
+
+/* QUIZ */
+.quiz-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:2rem;}
+.quiz-q{font-size:17px;color:var(--text);margin-bottom:1.5rem;line-height:1.5;}
+.quiz-options{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;}
+.quiz-opt{padding:12px 16px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;color:var(--text2);background:var(--bg3);transition:all .15s;text-align:left;font-family:'Georgia',serif;}
+.quiz-opt:hover{border-color:var(--border2);color:var(--text);}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red);}
+.quiz-explain{font-size:13px;color:var(--text2);line-height:1.6;padding:1rem;background:var(--bg3);border-radius:8px;display:none;margin-top:.5rem;}
+.quiz-explain.show{display:block;}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;}
+.quiz-nav-btn{padding:8px 20px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--text2);font-size:13px;cursor:pointer;font-family:'Georgia',serif;transition:all .2s;}
+.quiz-nav-btn:hover{background:var(--bg3);color:var(--text);}
+.quiz-counter{font-size:12px;color:var(--text3);}
+
+/* RATIO TOOL */
+.ratio-input-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.ratio-input-group{}
+.ratio-input-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px;}
+.ratio-input{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:14px;font-family:'Georgia',serif;}
+.ratio-input:focus{outline:none;border-color:var(--blue2);}
+.ratio-results{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem;}
+.ratio-result{padding:12px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);text-align:center;}
+.ratio-result-val{font-size:20px;font-weight:400;color:var(--text);}
+.ratio-result-lbl{font-size:11px;color:var(--text3);margin-top:2px;}
+.ratio-result-flag{font-size:11px;margin-top:4px;}
+
+/* CHECKLIST */
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);cursor:pointer;margin-bottom:6px;transition:all .15s;}
+.check-item:hover{border-color:var(--border2);}
+.check-box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:2px;}
+.check-item.done .check-box{background:var(--blue2);border-color:var(--blue2);}
+.check-item.done .check-text{text-decoration:line-through;color:var(--text3);}
+.check-text{font-size:14px;color:var(--text);}
+.check-sub{font-size:12px;color:var(--text3);}
+
+/* TAGS */
+.tag{font-size:11px;padding:3px 9px;border-radius:4px;border:1px solid;}
+.tag-blue{color:var(--blue2);border-color:var(--blue2);background:var(--blue-bg);}
+.tag-gold{color:var(--gold2);border-color:var(--gold2);background:var(--gold-bg);}
+.tag-green{color:var(--green);border-color:var(--green);background:var(--green-bg);}
+.tag-red{color:var(--red);border-color:var(--red);background:var(--red-bg);}
+
+/* CONCEPT PILL */
+.concept{font-size:12px;padding:5px 11px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);display:inline-block;margin:3px;}
+
+/* PROGRESS */
+.prog-bar-wrap{height:5px;background:var(--bg4);border-radius:3px;margin-bottom:2rem;}
+.prog-bar{height:5px;border-radius:3px;background:var(--blue2);transition:width .4s;}
+
+/* COLUMN DIVIDER */
+.col-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.col-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* HIGHLIGHT BOX */
+.highlight{padding:1.25rem 1.5rem;border-radius:10px;border:1px solid;margin:1rem 0;font-size:14px;line-height:1.65;}
+.highlight-blue{background:var(--blue-bg);border-color:var(--blue2);color:var(--text2);}
+.highlight-gold{background:var(--gold-bg);border-color:var(--gold2);color:var(--text2);}
+.highlight-green{background:var(--green-bg);border-color:var(--green);color:var(--text2);}
+.highlight-red{background:var(--red-bg);border-color:var(--red);color:var(--text2);}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:13px;}
+.data-table th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);font-weight:400;}
+.data-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2);}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--bg3);}
+td.good{color:var(--green);}td.bad{color:var(--red);}td.neutral{color:var(--gold2);}
+
+/* FOOTER */
+footer{padding:3rem 5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-brand{font-size:12px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;}
+.footer-note{font-size:12px;color:var(--text3);font-style:italic;}
+
+/* SPECIAL SITUATIONS */
+.sit-card{padding:1.25rem 1.5rem;border-radius:12px;background:var(--bg2);border:1px solid var(--border);margin-bottom:8px;}
+.sit-name{font-size:15px;color:var(--text);margin-bottom:.25rem;}
+.sit-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.sit-example{font-size:12px;color:var(--blue2);margin-top:.5rem;font-style:italic;}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--border);}
+.timeline-item{position:relative;margin-bottom:2rem;}
+.timeline-item::before{content:'';position:absolute;left:-2.45rem;top:6px;width:10px;height:10px;border-radius:50%;background:var(--blue2);border:2px solid var(--bg);}
+.timeline-year{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue2);margin-bottom:.25rem;}
+.timeline-title{font-size:15px;color:var(--text);margin-bottom:.25rem;}
+.timeline-body{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* SCROLL INDICATOR */
+.scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2s infinite;}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+.scroll-line{width:1px;height:40px;background:var(--border2);}
+.scroll-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div>
+    <div class="nav-logo">Value Investing</div>
+    <div class="nav-sub">Contrapposto Research · Graham & Dodd Curriculum</div>
+  </div>
+  <div class="nav-links">
+    <a href="#foundation">Foundation</a>
+    <a href="#graham">Graham</a>
+    <a href="#valuation">Valuation</a>
+    <a href="#moats">Moats</a>
+    <a href="#financials">Financials</a>
+    <a href="#special">Special Sits</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#checklist">Checklist</a>
+  </div>
+  <button class="theme-btn" onclick="toggleTheme()" id="tbtn">☀️</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Contrapposto Research · Graham & Dodd Tradition</div>
+  <h1 class="hero-title">The art of buying<br><em>one dollar</em><br>for fifty cents.</h1>
+  <p class="hero-desc">The complete value investing curriculum — from Ben Graham's screens to modern moat analysis, DCF construction, special situations, and the mental models that separate great investors from the rest.</p>
+  <div class="hero-stats">
+    <div><span class="stat-num">10</span><span class="stat-lbl">Graham screens</span></div>
+    <div><span class="stat-num">5</span><span class="stat-lbl">Moat types</span></div>
+    <div><span class="stat-num">12</span><span class="stat-lbl">Frameworks</span></div>
+    <div><span class="stat-num">∞</span><span class="stat-lbl">Depth</span></div>
+  </div>
+  <div class="brand-stripe"></div>
+  <div class="scroll-ind"><span class="scroll-lbl">Scroll</span><div class="scroll-line"></div></div>
+</div>
+
+<!-- STICKY TABS -->
+<div class="sticky-tabs" id="sticky-tabs">
+  <button class="stab active" onclick="scrollTo('foundation')">Foundation</button>
+  <button class="stab" onclick="scrollTo('graham')">Graham screens</button>
+  <button class="stab" onclick="scrollTo('valuation')">Valuation</button>
+  <button class="stab" onclick="scrollTo('moats')">Moats</button>
+  <button class="stab" onclick="scrollTo('financials')">Financials</button>
+  <button class="stab" onclick="scrollTo('macro-vi')">Macro lens</button>
+  <button class="stab" onclick="scrollTo('three-strata')">Three strata</button>
+  <button class="stab" onclick="scrollTo('buffett-tenets')">Buffett's tenets</button>
+  <button class="stab" onclick="scrollTo('acct-deep')">Accounting depth</button>
+  <button class="stab" onclick="scrollTo('stock-pitch')">Stock pitch</button>
+  <button class="stab" onclick="scrollTo('special')">Special sits</button>
+  <button class="stab" onclick="scrollTo('mental')">Mental models</button>
+  <button class="stab" onclick="scrollTo('quiz')">Quiz</button>
+  <button class="stab" onclick="scrollTo('checklist')">Checklist</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: FOUNDATION -->
+<!-- ============================================================ -->
+<div id="foundation"></div>
+<div class="section">
+  <div class="section-eye">Section I</div>
+  <h2 class="section-title">The foundation of value investing.</h2>
+  <p class="section-desc">Everything starts here. The core insight that has driven the world's greatest investors for nearly 100 years.</p>
+
+  <div class="highlight highlight-blue" style="font-size:18px;font-style:italic;color:var(--text);margin-bottom:2rem;">
+    "A financial balance sheet value investor is an investor who makes their investment judgments based upon the value of <strong>assets in place</strong> rather than growth potential. Growth is icing on top."
+  </div>
+
+  <div class="grid3" style="margin-bottom:2rem;">
+    <div class="card">
+      <div class="card-label">Core Principle 1</div>
+      <div class="card-title">Price ≠ Value</div>
+      <div class="card-body">Mr. Market is an emotional business partner who offers you prices every day. Sometimes he's euphoric and prices too high. Sometimes he's depressed and prices too low. Your job is to exploit his irrationality — never be ruled by it.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Core Principle 2</div>
+      <div class="card-title">Margin of safety</div>
+      <div class="card-body">Buy assets at a significant discount to their intrinsic value. This gap protects you from errors in analysis, unforeseen events, and bad luck. The bigger the discount, the safer the investment. Graham called it the three most important words in investing.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Core Principle 3</div>
+      <div class="card-title">Circle of competence</div>
+      <div class="card-body">Only invest in businesses you truly understand. Knowing what you don't know is as important as what you do know. Buffett passed on tech for decades — not because he was wrong about tech, but because he knew he couldn't value it with confidence.</div>
+    </div>
+  </div>
+
+  <div class="col-label">The two schools within value investing</div>
+  <div class="grid2" style="margin-bottom:2rem;">
+    <div class="card" style="border-left:3px solid var(--blue2);">
+      <div class="card-label" style="color:var(--blue2);">Graham school — asset-based</div>
+      <div class="card-title">Statistical cheapness</div>
+      <div class="card-body">Buy a diversified basket of statistically cheap stocks — low P/B, low P/E, high dividend yield. Don't need to understand each business deeply. Works best in inefficient markets. Graham's "net-nets" and screen-based approach.<br><br>
+      <strong style="color:var(--text)">Key thinkers:</strong> Ben Graham, Walter Schloss, Seth Klarman (early)<br>
+      <strong style="color:var(--text)">Key texts:</strong> Security Analysis, The Intelligent Investor</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--gold2);">
+      <div class="card-label" style="color:var(--gold2);">Munger/Buffett school — quality at price</div>
+      <div class="card-title">Wonderful companies at fair prices</div>
+      <div class="card-body">Pay up for quality — businesses with durable competitive advantages, high ROIC, and excellent management. Hold forever. "It's far better to buy a wonderful company at a fair price than a fair company at a wonderful price." — Buffett<br><br>
+      <strong style="color:var(--text)">Key thinkers:</strong> Buffett, Munger, Tom Russo, Chuck Akre<br>
+      <strong style="color:var(--text)">Key texts:</strong> Essays of Warren Buffett, Poor Charlie's Almanack</div>
+    </div>
+  </div>
+
+  <div class="col-label">The value investing timeline</div>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-year">1934</div><div class="timeline-title">Security Analysis — Graham & Dodd</div><div class="timeline-body">The bible. Formalized value investing as a discipline. Introduced intrinsic value, margin of safety, and fundamental analysis. Introduced intrinsic value, margin of safety, and fundamental analysis.</div></div>
+    <div class="timeline-item"><div class="timeline-year">1949</div><div class="timeline-title">The Intelligent Investor</div><div class="timeline-body">Graham's masterwork for the individual investor. Introduced Mr. Market allegory. The book that changed Warren Buffett's life at age 19.</div></div>
+    <div class="timeline-item"><div class="timeline-year">1956–1969</div><div class="timeline-title">Buffett Partnership</div><div class="timeline-body">Buffett compounds at 31.6% annually vs 7.4% for the Dow. Pure Graham-style statistical investing — net-nets, cheap assets, activist positions.</div></div>
+    <div class="timeline-item"><div class="timeline-year">1972</div><div class="timeline-title">Munger's influence — See's Candies</div><div class="timeline-body">Buffett pays 3x book value for See's Candies on Munger's advice. A turning point — quality over cheapness. "The evolution from Graham to Buffett-Munger."</div></div>
+    <div class="timeline-item"><div class="timeline-year">1991</div><div class="timeline-title">Klarman's Margin of Safety</div><div class="timeline-body">The rarest book in value investing. Synthesizes Graham for the modern era. Covers special situations, distressed investing, and institutional constraints.</div></div>
+    <div class="timeline-item"><div class="timeline-year">1991–present</div><div class="timeline-title">Howard Marks — Oaktree memos</div><div class="timeline-body">The best ongoing finance education available free. Market cycles, risk, second-level thinking. Read every memo from the archive.</div></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: GRAHAM SCREENS -->
+<!-- ============================================================ -->
+<div id="graham"></div>
+<div class="section">
+  <div class="section-eye">Section II</div>
+  <h2 class="section-title">Ben Graham's 10 screens.</h2>
+  <p class="section-desc">The original quantitative value investing framework. A stock that passes all 10 screens is statistically very cheap — Graham called these "defensive" investments. Even passing 7–8 indicates deep value.</p>
+
+  <div class="highlight highlight-gold">
+    <strong style="color:var(--gold2)">How to use these:</strong> Run these as filters on a stock screener (Capital IQ, Bloomberg, Finviz). Companies passing 6+ screens historically outperform significantly. They won't be exciting — that's the point.
+  </div>
+
+  <div style="margin-top:1.5rem;">
+    <div class="screen-item">
+      <div class="screen-num">1</div>
+      <div class="screen-content">
+        <div class="screen-title">PE below inverse of AAA bond yield</div>
+        <div class="screen-explain">If AAA bond yield = 5%, then max P/E = 20x (1/0.05). Ensures equity earnings yield exceeds bond yield — compensates for equity risk.</div>
+        <div class="screen-formula">P/E &lt; (1 / AAA Bond Yield) — e.g., if yield = 5%, P/E &lt; 20x</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">2</div>
+      <div class="screen-content">
+        <div class="screen-title">PE less than 40% of 5-year average PE</div>
+        <div class="screen-explain">Current P/E must be deeply below the stock's own historical average. Forces you to buy when the market has beaten a stock down — not when it's at highs.</div>
+        <div class="screen-formula">Current P/E &lt; 0.4 × (5-year average P/E)</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">3</div>
+      <div class="screen-content">
+        <div class="screen-title">Dividend yield > two-thirds of AAA bond yield</div>
+        <div class="screen-explain">The dividend alone should provide meaningful return relative to the risk-free alternative. Ensures income while you wait for value to be recognized.</div>
+        <div class="screen-formula">Div Yield &gt; (2/3) × AAA Corporate Bond Yield</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">4</div>
+      <div class="screen-content">
+        <div class="screen-title">Price less than two-thirds of book value</div>
+        <div class="screen-explain">You're buying assets at a discount to what accountants say they're worth. This is the purest form of "buying a dollar for sixty-six cents." Classic net asset value investing.</div>
+        <div class="screen-formula">P/B &lt; 0.67 — Price &lt; (2/3) × Book Value per Share</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">5</div>
+      <div class="screen-content">
+        <div class="screen-title">Price less than two-thirds of net current assets</div>
+        <div class="screen-explain">The famous "net-net" screen. You're paying less than 66 cents for every dollar of current assets (cash, receivables, inventory) after subtracting ALL liabilities. Extremely rare today — more common in small/micro caps.</div>
+        <div class="screen-formula">Price &lt; (2/3) × (Current Assets − Total Liabilities)</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">6</div>
+      <div class="screen-content">
+        <div class="screen-title">Debt-to-equity ratio below one (book value)</div>
+        <div class="screen-explain">Conservative balance sheet. Total debt should not exceed total equity. Protects against distress if business deteriorates. Graham wanted financial fortress, not leverage.</div>
+        <div class="screen-formula">Total Debt / Book Value of Equity &lt; 1.0</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">7</div>
+      <div class="screen-content">
+        <div class="screen-title">Current assets greater than twice current liabilities</div>
+        <div class="screen-explain">Current ratio above 2.0x. The company can pay off all short-term obligations twice over with short-term assets. Strong liquidity buffer — won't face near-term cash crunch.</div>
+        <div class="screen-formula">Current Ratio = Current Assets / Current Liabilities &gt; 2.0x</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">8</div>
+      <div class="screen-content">
+        <div class="screen-title">Total debt less than twice net current assets</div>
+        <div class="screen-explain">Even total long-term debt should be manageable relative to liquid assets. Combines leverage and liquidity — ensures the company isn't technically solvent but practically trapped.</div>
+        <div class="screen-formula">Total Debt &lt; 2 × (Current Assets − Current Liabilities)</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">9</div>
+      <div class="screen-content">
+        <div class="screen-title">Historical EPS growth greater than 7% over 10 years</div>
+        <div class="screen-explain">Not just cheap — the earnings power should be growing. Compounding at 7% doubles in ~10 years. Graham wanted to avoid value traps — businesses that are cheap because they're genuinely declining.</div>
+        <div class="screen-formula">10-year EPS CAGR &gt; 7%</div>
+      </div>
+    </div>
+    <div class="screen-item">
+      <div class="screen-num">10</div>
+      <div class="screen-content">
+        <div class="screen-title">No more than two years of negative earnings in 10 years</div>
+        <div class="screen-explain">Business quality filter. A company that's been profitable 8 of 10 years is fundamentally sound. Chronic losers fail this — they're cheap because they destroy capital, not because they're misunderstood.</div>
+        <div class="screen-formula">Max 2 years with EPS &lt; 0 over trailing 10-year period</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight highlight-blue" style="margin-top:1.5rem;">
+    <strong style="color:var(--blue2)">Graham's net-net formula:</strong><br>
+    NCAV (Net Current Asset Value) = Current Assets − Total Liabilities<br>
+    Buy when: Market Cap &lt; 0.67 × NCAV — the ultimate deep value screen.
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: VALUATION -->
+<!-- ============================================================ -->
+<div id="valuation"></div>
+<div class="section">
+  <div class="section-eye">Section III</div>
+  <h2 class="section-title">Valuation methods.</h2>
+  <p class="section-desc">Value investors use multiple methods and look for convergence — a "football field" of values. Never rely on one method alone.</p>
+
+  <!-- DCF INTERACTIVE -->
+  <div class="col-label">Interactive DCF calculator</div>
+  <div class="card" style="margin-bottom:2rem;">
+    <div class="card-label">Discounted Cash Flow — adjust inputs to see intrinsic value</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1rem;">
+      <div>
+        <div class="dcf-slider-row">
+          <span class="dcf-label">Current free cash flow ($M)</span>
+          <input type="range" class="dcf-slider" min="10" max="500" value="100" id="fcf" oninput="calcDCF()"/>
+          <span class="dcf-val" id="fcf-v">$100M</span>
+        </div>
+        <div class="dcf-slider-row">
+          <span class="dcf-label">Growth rate (years 1–5)</span>
+          <input type="range" class="dcf-slider" min="0" max="25" value="10" id="gr1" oninput="calcDCF()"/>
+          <span class="dcf-val" id="gr1-v">10%</span>
+        </div>
+        <div class="dcf-slider-row">
+          <span class="dcf-label">Growth rate (years 6–10)</span>
+          <input type="range" class="dcf-slider" min="0" max="15" value="6" id="gr2" oninput="calcDCF()"/>
+          <span class="dcf-val" id="gr2-v">6%</span>
+        </div>
+        <div class="dcf-slider-row">
+          <span class="dcf-label">Terminal growth rate</span>
+          <input type="range" class="dcf-slider" min="1" max="5" step="0.5" value="3" id="tgr" oninput="calcDCF()"/>
+          <span class="dcf-val" id="tgr-v">3%</span>
+        </div>
+        <div class="dcf-slider-row">
+          <span class="dcf-label">Discount rate (WACC)</span>
+          <input type="range" class="dcf-slider" min="6" max="16" step="0.5" value="10" id="wacc" oninput="calcDCF()"/>
+          <span class="dcf-val" id="wacc-v">10%</span>
+        </div>
+        <div class="dcf-slider-row">
+          <span class="dcf-label">Current market price ($M)</span>
+          <input type="range" class="dcf-slider" min="50" max="5000" step="50" value="800" id="mktprice" oninput="calcDCF()"/>
+          <span class="dcf-val" id="mktprice-v">$800M</span>
+        </div>
+      </div>
+      <div>
+        <div class="dcf-result">
+          <div class="dcf-result-num" id="dcf-intrinsic">$1,240M</div>
+          <div class="dcf-result-lbl">Intrinsic value (DCF)</div>
+        </div>
+        <div class="dcf-margin">
+          <div class="dcf-margin-item" id="dcf-mos" style="background:var(--green-bg);color:var(--green);border-radius:8px;">Margin of safety: 35%</div>
+          <div class="dcf-margin-item" id="dcf-verdict" style="background:var(--green-bg);color:var(--green);border-radius:8px;">BUY signal</div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1rem;background:var(--bg3);border-radius:8px;font-size:12px;color:var(--text2);line-height:1.6;">
+          <strong style="color:var(--text)">Reading the output:</strong><br>
+          Margin of safety = (Intrinsic − Market) / Intrinsic. Graham required 33%+. Buffett targets 25%+. The more uncertain your inputs, the larger the safety margin you need.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUATION METHODS -->
+  <div class="col-label">The full toolkit — valuation methodologies</div>
+  <div style="margin-bottom:1.5rem;">
+    <div class="acc-item open" id="acc-dcf">
+      <div class="acc-header" onclick="toggleAcc('acc-dcf')">
+        <span class="acc-title">1. Discounted Cash Flow (DCF)</span>
+        <span class="acc-arrow">↓</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;">The theoretically correct method — value = present value of all future free cash flows. Best for stable, predictable businesses with long operating histories. Most sensitive to terminal growth rate and discount rate assumptions.</p>
+        <div class="formula-box"><div class="formula-lbl">DCF formula</div>Intrinsic Value = Σ [FCFₜ / (1+WACC)ᵗ] + Terminal Value / (1+WACC)ⁿ<br><br>Terminal Value = FCFₙ × (1+g) / (WACC − g)</div>
+        <div class="grid2" style="margin-top:1rem;">
+          <div>
+            <div style="font-size:12px;color:var(--green);margin-bottom:.5rem;">✓ Best for:</div>
+            <div style="font-size:13px;color:var(--text2);">Stable FCF businesses, utilities, consumer staples, industrial companies with predictable capex</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--red);margin-bottom:.5rem;">✗ Weakest for:</div>
+            <div style="font-size:13px;color:var(--text2);">Early-stage companies, highly cyclical businesses, financial companies (use DDM instead)</div>
+          </div>
+        </div>
+        <div class="highlight highlight-gold" style="margin-top:1rem;">
+          <strong style="color:var(--gold2)">Key insight:</strong> "Garbage in, garbage out." A DCF is only as good as your assumptions. The terminal value often represents 60–80% of total value — which is why terminal growth rate is the most dangerous input. Graham himself was skeptical of DCF for this reason.
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-comps">
+      <div class="acc-header" onclick="toggleAcc('acc-comps')">
+        <span class="acc-title">2. Comparable company analysis (trading comps)</span>
+        <span class="acc-arrow">↓</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;">Value the company relative to similar public companies. The market tells you what it's willing to pay for comparable businesses. Value investors use this to find where a company is cheap relative to peers — not to justify overpaying.</p>
+        <div class="formula-box"><div class="formula-lbl">Key multiples</div>EV/EBITDA — enterprise value to operating earnings before D&A<br>P/E — price to earnings (most common, most abused)<br>EV/Revenue — useful for early-stage or low-margin businesses<br>P/FCF — price to free cash flow (most honest)<br>P/Book — price to book value (Graham's favorite)</div>
+        <table class="data-table" style="margin-top:1rem;">
+          <tr><th>Sector</th><th>Typical EV/EBITDA</th><th>Typical P/E</th><th>What drives premium</th></tr>
+          <tr><td>Industrials</td><td class="neutral">8–12x</td><td class="neutral">14–20x</td><td>Backlog visibility, margins</td></tr>
+          <tr><td>Consumer staples</td><td class="good">12–18x</td><td class="good">18–26x</td><td>Brand strength, pricing power</td></tr>
+          <tr><td>Mining</td><td class="neutral">5–8x</td><td class="neutral">10–16x</td><td>Commodity cycle, reserves</td></tr>
+          <tr><td>Infrastructure</td><td class="good">14–20x</td><td class="good">20–30x</td><td>Regulated returns, long contracts</td></tr>
+          <tr><td>Technology</td><td class="bad">20–40x</td><td class="bad">30–60x</td><td>Growth expectations (not value)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-assets">
+      <div class="acc-header" onclick="toggleAcc('acc-assets')">
+        <span class="acc-title">3. Asset-based valuation (Net Asset Value)</span>
+        <span class="acc-arrow">↓</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;">The most fundamental Graham approach — what would this business be worth if liquidated today? For financial balance sheet investors, this is the anchor. Growth is upside, not the base case.</p>
+        <div class="formula-box"><div class="formula-lbl">Asset-based valuation hierarchy</div>1. Liquidation Value = Cash + (0.85×Receivables) + (0.5×Inventory) − All Liabilities<br>2. NCAV = Current Assets − Total Liabilities (Graham's net-net)<br>3. Book Value = Total Assets − Total Liabilities<br>4. Adjusted Book = Book + Hidden asset adjustments (real estate, IP, etc.)</div>
+        <div class="highlight highlight-blue" style="margin-top:1rem;">
+          <strong style="color:var(--blue2)">Hidden assets to look for:</strong> Owned real estate carried at historical cost, undervalued subsidiaries, accumulated NOLs (tax assets), brand value not on balance sheet, underfunded/overfunded pension.
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-ddm">
+      <div class="acc-header" onclick="toggleAcc('acc-ddm')">
+        <span class="acc-title">4. Dividend Discount Model (DDM)</span>
+        <span class="acc-arrow">↓</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;">Best for mature dividend-paying companies. Value = present value of all future dividends. Most appropriate for banks, utilities, REITs, and insurance companies where free cash flow is hard to define.</p>
+        <div class="formula-box"><div class="formula-lbl">Gordon Growth Model (constant growth DDM)</div>Intrinsic Value = D₁ / (r − g)<br><br>D₁ = Next year's dividend, r = Required return, g = Constant growth rate</div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-ep">
+      <div class="acc-header" onclick="toggleAcc('acc-ep')">
+        <span class="acc-title">5. Earnings Power Value (EPV) — Graham & Dodd method</span>
+        <span class="acc-arrow">↓</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;">Bruce Greenwald's approach. Separate what the current business earns (EPV) from what future growth might add. True value investing starts with EPV — growth is bonus.</p>
+        <div class="formula-box"><div class="formula-lbl">Earnings Power Value</div>EPV = Adjusted EBIT × (1 − tax rate) / WACC<br><br>Where "Adjusted EBIT" normalizes for cycle, one-offs, and accounting distortions.<br>Growth value = Strategic value − EPV (only counted if competitive advantage exists)</div>
+        <div class="highlight highlight-green" style="margin-top:1rem;">
+          <strong style="color:var(--green)">The key insight:</strong> If EPV > Asset Value, the company earns above its cost of capital — it has a real moat. If EPV < Asset Value, competition will erode returns. EPV = Asset Value is the competitive equilibrium.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RATIO CALCULATOR -->
+  <div class="col-label" style="margin-top:2rem;">Interactive valuation ratio tool</div>
+  <div class="card">
+    <div class="card-label">Enter company financials — see key value ratios instantly</div>
+    <div class="ratio-input-row" style="margin-top:1rem;">
+      <div class="ratio-input-group"><div class="ratio-input-label">Market cap ($M)</div><input class="ratio-input" type="number" id="r-mktcap" value="500" oninput="calcRatios()"/></div>
+      <div class="ratio-input-group"><div class="ratio-input-label">Net income ($M)</div><input class="ratio-input" type="number" id="r-ni" value="40" oninput="calcRatios()"/></div>
+      <div class="ratio-input-group"><div class="ratio-input-label">EBITDA ($M)</div><input class="ratio-input" type="number" id="r-ebitda" value="70" oninput="calcRatios()"/></div>
+      <div class="ratio-input-group"><div class="ratio-input-label">Revenue ($M)</div><input class="ratio-input" type="number" id="r-rev" value="300" oninput="calcRatios()"/></div>
+      <div class="ratio-input-group"><div class="ratio-input-label">Book value ($M)</div><input class="ratio-input" type="number" id="r-book" value="200" oninput="calcRatios()"/></div>
+      <div class="ratio-input-group"><div class="ratio-input-label">Free cash flow ($M)</div><input class="ratio-input" type="number" id="r-fcf" value="35" oninput="calcRatios()"/></div>
+      <div class="ratio-input-group"><div class="ratio-input-label">Total debt ($M)</div><input class="ratio-input" type="number" id="r-debt" value="80" oninput="calcRatios()"/></div>
+      <div class="ratio-input-group"><div class="ratio-input-label">Cash ($M)</div><input class="ratio-input" type="number" id="r-cash" value="30" oninput="calcRatios()"/></div>
+    </div>
+    <div class="ratio-results" id="ratio-results"></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: MOATS -->
+<!-- ============================================================ -->
+<div id="moats"></div>
+<div class="section">
+  <div class="section-eye">Section IV</div>
+  <h2 class="section-title">Economic moats.</h2>
+  <p class="section-desc">Buffett's term for durable competitive advantage. A moat is what allows a business to earn above its cost of capital for years or decades without competition eroding those returns. Identifying moats is the most important skill in quality-oriented value investing.</p>
+
+  <div class="grid3" style="margin-bottom:2rem;">
+    <div class="moat-card" style="border-top:3px solid var(--blue2);">
+      <div class="moat-icon">🏰</div>
+      <div class="moat-name">Network effects</div>
+      <div class="moat-desc">The product becomes more valuable as more people use it. The strongest and rarest moat type — almost impossible to dislodge once established. Winner-takes-most dynamics.</div>
+      <div class="moat-examples">Examples: Visa, Mastercard (payment networks), MSCI (index data), Bloomberg Terminal</div>
+    </div>
+    <div class="moat-card" style="border-top:3px solid var(--gold2);">
+      <div class="moat-icon">💊</div>
+      <div class="moat-name">Switching costs</div>
+      <div class="moat-desc">Customers are locked in because the cost of switching — financial, operational, psychological — is too high. Enterprise software, financial systems, specialized industrial equipment.</div>
+      <div class="moat-examples">Examples: Veeva Systems, Costar, industrial ERP providers, core banking software</div>
+    </div>
+    <div class="moat-card" style="border-top:3px solid var(--green);">
+      <div class="moat-icon">💰</div>
+      <div class="moat-name">Cost advantages</div>
+      <div class="moat-desc">Structural cost advantage — access to cheaper resources, proprietary processes, economies of scale, or better location. Can serve customers at a price competitors can't match profitably.</div>
+      <div class="moat-examples">Examples: Nucor (mini-mills), GEICO (direct distribution), Walmart (supply chain scale)</div>
+    </div>
+    <div class="moat-card" style="border-top:3px solid var(--purple);">
+      <div class="moat-icon">🧠</div>
+      <div class="moat-name">Intangible assets</div>
+      <div class="moat-desc">Brands, patents, licenses, regulatory approvals. The brand allows pricing above commodity; patents provide a legal monopoly; licenses (like bank charters) limit competitors by law.</div>
+      <div class="moat-examples">Examples: Coca-Cola (brand), Novo Nordisk (patents), regulated utilities (licenses)</div>
+    </div>
+    <div class="moat-card" style="border-top:3px solid var(--teal);">
+      <div class="moat-icon">🏗️</div>
+      <div class="moat-name">Efficient scale</div>
+      <div class="moat-desc">In markets of limited size, one or a few firms serve the market profitably — but new entrants can't because they'd reduce returns for everyone. Natural geographic monopolies.</div>
+      <div class="moat-examples">Examples: Regional airports, waste management in small markets, local pipelines</div>
+    </div>
+    <div class="moat-card" style="border-top:3px solid var(--red);">
+      <div class="moat-icon">⚠️</div>
+      <div class="moat-name">No moat — value traps</div>
+      <div class="moat-desc">Cheap stocks with no competitive advantage. Eventually competition erodes earnings to cost of capital. Statistically cheap, fundamentally deteriorating. Graham-style screens catch some; moat analysis filters them out.</div>
+      <div class="moat-examples">Avoid: Commodity manufacturers, undifferentiated retailers, businesses where "good enough" competition exists</div>
+    </div>
+  </div>
+
+  <!-- MOAT STRENGTH -->
+  <div class="col-label">Moat durability — how to assess</div>
+  <div class="grid2">
+    <div>
+      <div class="acc-item open" id="acc-moat1">
+        <div class="acc-header" onclick="toggleAcc('acc-moat1')"><span class="acc-title">ROIC — the moat scorecard</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Return on Invested Capital (ROIC) is the single best indicator of moat strength. A business earning 25% ROIC year after year in a competitive industry has a moat — there's no other explanation.</p>
+          <div class="formula-box"><div class="formula-lbl">ROIC formula</div>ROIC = NOPAT / Invested Capital<br>NOPAT = EBIT × (1 − tax rate)<br>Invested Capital = Total Assets − Excess Cash − Non-interest-bearing current liabilities</div>
+          <table class="data-table" style="margin-top:.75rem;">
+            <tr><th>ROIC level</th><th>Interpretation</th></tr>
+            <tr><td>&lt; 8%</td><td class="bad">Below cost of capital — value destroyer</td></tr>
+            <tr><td>8–12%</td><td class="neutral">Mediocre — competitive equilibrium</td></tr>
+            <tr><td>12–20%</td><td class="good">Good business with some advantage</td></tr>
+            <tr><td>&gt; 20%</td><td class="good">Strong moat — exceptional business</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="acc-item open" id="acc-moat2">
+        <div class="acc-header" onclick="toggleAcc('acc-moat2')"><span class="acc-title">The 5 questions to identify a moat</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="padding:10px 14px;background:var(--bg3);border-radius:8px;font-size:13px;color:var(--text2);">1. Has ROIC exceeded cost of capital for 10+ years consistently?</div>
+            <div style="padding:10px 14px;background:var(--bg3);border-radius:8px;font-size:13px;color:var(--text2);">2. What stops a well-funded competitor from copying this business tomorrow?</div>
+            <div style="padding:10px 14px;background:var(--bg3);border-radius:8px;font-size:13px;color:var(--text2);">3. Can the company raise prices without losing customers?</div>
+            <div style="padding:10px 14px;background:var(--bg3);border-radius:8px;font-size:13px;color:var(--text2);">4. Have gross margins been stable or expanding over time?</div>
+            <div style="padding:10px 14px;background:var(--bg3);border-radius:8px;font-size:13px;color:var(--text2);">5. Does management reinvest capital at high returns (not just distribute it)?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: FINANCIAL STATEMENT ANALYSIS -->
+<!-- ============================================================ -->
+<div id="financials"></div>
+<div class="section">
+  <div class="section-eye">Section V</div>
+  <h2 class="section-title">Financial statement analysis.</h2>
+  <p class="section-desc">Value investors are forensic accountants. You're looking for the truth behind the numbers — what management reports vs. what the business actually does.</p>
+
+  <div class="col-label">The three statements — how they connect</div>
+  <div class="grid3" style="margin-bottom:2rem;">
+    <div class="card" style="border-top:3px solid var(--blue2);">
+      <div class="card-label" style="color:var(--blue2);">Income statement</div>
+      <div class="card-title">Earnings quality</div>
+      <div class="card-body">
+        <strong style="color:var(--text)">What to look for:</strong><br>
+        — Revenue growth trend (organic vs acquired)<br>
+        — Gross margin stability or expansion<br>
+        — SG&A as % of revenue (operational leverage)<br>
+        — R&D investment vs competitors<br>
+        — Non-recurring items — are they really non-recurring?<br>
+        — EPS vs FCF per share divergence (accounting manipulation signal)<br><br>
+        <strong style="color:var(--red)">Red flags:</strong> Revenue growth without margin expansion, frequent "one-time" charges, channel stuffing, aggressive revenue recognition
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--gold2);">
+      <div class="card-label" style="color:var(--gold2);">Balance sheet</div>
+      <div class="card-title">Asset quality & leverage</div>
+      <div class="card-body">
+        <strong style="color:var(--text)">What to look for:</strong><br>
+        — Cash and equivalents (fortress or barely solvent?)<br>
+        — Receivables days outstanding trend (rising = warning)<br>
+        — Inventory days (rising = can't sell; falling = efficiency)<br>
+        — Goodwill as % of assets (acquisition history)<br>
+        — Debt maturity schedule (refinancing risk)<br>
+        — Off-balance-sheet liabilities (leases, pension)<br><br>
+        <strong style="color:var(--red)">Red flags:</strong> Goodwill > 50% of assets, rising DSO, debt covenants near limits, large unfunded pensions
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--green);">
+      <div class="card-label" style="color:var(--green);">Cash flow statement</div>
+      <div class="card-title">The truth teller</div>
+      <div class="card-body">
+        <strong style="color:var(--text)">What to look for:</strong><br>
+        — Operating CF vs Net Income (should track closely)<br>
+        — Capex intensity (maintenance vs growth capex)<br>
+        — Free cash flow conversion (FCF/Net Income)<br>
+        — Working capital changes (hidden cash drain?)<br>
+        — Financing activities (debt issuance, buybacks, dividends)<br><br>
+        <strong style="color:var(--green)">Green flag:</strong> FCF > Net Income consistently = conservative accounting, real cash generation
+        <strong style="color:var(--red)">Red flag:</strong> Net Income >> FCF for multiple years = earnings manipulation
+      </div>
+    </div>
+  </div>
+
+  <div class="col-label">Key ratios — what they mean for value investors</div>
+  <div style="overflow-x:auto;margin-bottom:2rem;">
+    <table class="data-table" style="min-width:700px;">
+      <tr><th>Ratio</th><th>Formula</th><th>What it measures</th><th>Graham benchmark</th><th>Warning zone</th></tr>
+      <tr><td><strong style="color:var(--text)">P/E</strong></td><td style="font-family:monospace;font-size:12px;">Price / EPS</td><td>Earnings cheapness</td><td class="good">&lt;15x</td><td class="bad">&gt;25x</td></tr>
+      <tr><td><strong style="color:var(--text)">P/B</strong></td><td style="font-family:monospace;font-size:12px;">Price / Book/sh</td><td>Asset cheapness</td><td class="good">&lt;1.5x</td><td class="bad">&gt;3x</td></tr>
+      <tr><td><strong style="color:var(--text)">EV/EBITDA</strong></td><td style="font-family:monospace;font-size:12px;">EV / EBITDA</td><td>Operating earnings</td><td class="good">&lt;8x</td><td class="bad">&gt;15x</td></tr>
+      <tr><td><strong style="color:var(--text)">P/FCF</strong></td><td style="font-family:monospace;font-size:12px;">Price / FCF/sh</td><td>Cash generation</td><td class="good">&lt;15x</td><td class="bad">&gt;25x</td></tr>
+      <tr><td><strong style="color:var(--text)">Current ratio</strong></td><td style="font-family:monospace;font-size:12px;">CA / CL</td><td>Short-term liquidity</td><td class="good">&gt;2.0x</td><td class="bad">&lt;1.0x</td></tr>
+      <tr><td><strong style="color:var(--text)">D/E ratio</strong></td><td style="font-family:monospace;font-size:12px;">Debt / Equity</td><td>Leverage safety</td><td class="good">&lt;0.5x</td><td class="bad">&gt;1.5x</td></tr>
+      <tr><td><strong style="color:var(--text)">ROIC</strong></td><td style="font-family:monospace;font-size:12px;">NOPAT / Inv.Capital</td><td>Capital efficiency</td><td class="good">&gt;15%</td><td class="bad">&lt;8%</td></tr>
+      <tr><td><strong style="color:var(--text)">FCF conversion</strong></td><td style="font-family:monospace;font-size:12px;">FCF / Net Income</td><td>Earnings quality</td><td class="good">&gt;80%</td><td class="bad">&lt;50%</td></tr>
+      <tr><td><strong style="color:var(--text)">Gross margin</strong></td><td style="font-family:monospace;font-size:12px;">(Rev−COGS)/Rev</td><td>Pricing power</td><td class="good">Stable/rising</td><td class="bad">Declining trend</td></tr>
+    </table>
+  </div>
+
+  <div class="col-label">Forensic accounting — what management hides</div>
+  <div class="grid2">
+    <div>
+      <div class="acc-item" id="acc-fa1">
+        <div class="acc-header" onclick="toggleAcc('acc-fa1')"><span class="acc-title">Channel stuffing & revenue manipulation</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Management ships product to distributors (recognizes revenue) knowing much will be returned. Watch: Days Sales Outstanding (DSO) rising faster than revenue growth. If DSO expands significantly, receivables are being counted as revenue that won't be collected.</p>
+          <div class="formula-box" style="font-size:12px;"><div class="formula-lbl">DSO check</div>DSO = (Accounts Receivable / Revenue) × 365<br>Rising DSO → potential revenue manipulation</div>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-fa2">
+        <div class="acc-header" onclick="toggleAcc('acc-fa2')"><span class="acc-title">Adjusted EBITDA abuse</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Companies add back stock comp, restructuring, "one-time" items to create "Adjusted EBITDA." If adjusted EBITDA >> GAAP EBITDA every year, the "adjustments" are actually recurring costs. Stock-based comp is real dilution — never ignore it.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="acc-item" id="acc-fa3">
+        <div class="acc-header" onclick="toggleAcc('acc-fa3')"><span class="acc-title">Goodwill impairment as a warning signal</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">When a company overpays for acquisitions, it creates goodwill. Goodwill impairment = management admitting they overpaid. Watch: acquisitive companies with goodwill > 40% of total assets. They are buying growth instead of creating it — and overpaying for it.</p>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-fa4">
+        <div class="acc-header" onclick="toggleAcc('acc-fa4')"><span class="acc-title">Maintenance vs growth capex</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Companies don't break out maintenance capex. Buffett's rule: "Owner earnings = Net Income + D&A − Maintenance CapEx." A capital-intensive business with high depreciation may have near-zero true FCF. Always ask: what would FCF be if they stopped growing?</p>
+          <div class="formula-box" style="font-size:12px;"><div class="formula-lbl">Buffett's owner earnings</div>Owner Earnings = Net Income + D&A − Maintenance CapEx ± Working Capital changes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: MACRO LENS FOR VALUE INVESTORS -->
+<!-- ============================================================ -->
+<div id="macro-vi"></div>
+<div class="section">
+  <div class="section-eye">Section VI</div>
+  <h2 class="section-title">The macro lens.</h2>
+  <p class="section-desc">Value investors don't forecast the economy — but they need to understand the environment. Cycle positioning, interest rate impact on valuation, and industry-specific macro drivers are all essential.</p>
+
+  <div class="grid2" style="margin-bottom:2rem;">
+    <div class="card">
+      <div class="card-label">Interest rates & valuation</div>
+      <div class="card-title">The denominator effect</div>
+      <div class="card-body">When rates rise, the discount rate rises, and intrinsic values fall — especially for long-duration assets (high-growth stocks, infrastructure). Value stocks (short duration — near-term cash flows) are relatively protected. Graham's bond yield screen (Screen #1) captures this directly: as bond yields rise, the P/E you should pay falls.<br><br>
+      <strong style="color:var(--text)">Rule of thumb:</strong> Every 100bps rise in rates → 10-year P/E multiple compression of 1–2 turns on average.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Business cycles & sector rotation</div>
+      <div class="card-title">When to own what</div>
+      <div class="card-body">
+        <div style="font-size:13px;color:var(--text2);">
+          <div style="margin-bottom:6px;"><span class="tag tag-green">Early cycle</span> — Financials, consumer discretionary, industrials recover first</div>
+          <div style="margin-bottom:6px;"><span class="tag tag-blue">Mid cycle</span> — Technology, materials, capital goods. Peak earnings growth.</div>
+          <div style="margin-bottom:6px;"><span class="tag tag-gold">Late cycle</span> — Energy, utilities, healthcare outperform. Value holds better.</div>
+          <div style="margin-bottom:6px;"><span class="tag tag-red">Recession</span> — Consumer staples, utilities, healthcare. Cash is king.</div>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin-top:.75rem;">Value investors don't time cycles — but cycle awareness prevents buying cyclical industrials at peak earnings (which look cheap on P/E but aren't on normalized earnings).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight highlight-gold">
+    <strong style="color:var(--gold2)">The normalized earnings concept:</strong> Never value a cyclical company on peak or trough earnings. Use 7-10 year average earnings (Graham's preferred period). A steel company earning $10/share at peak may earn $2 in a recession. The "cheap" 8x P/E at peak is actually 40x normalized.
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION NEW-A: THREE STRATA OF CORPORATE VALUE -->
+<!-- ============================================================ -->
+<div id="three-strata"></div>
+<div class="section">
+  <div class="section-eye">Core Framework — Bruce Greenwald</div>
+  <h2 class="section-title">The three strata of corporate value.</h2>
+  <p class="section-desc">The intellectual heart of the value investing curriculum. Value a business in three sequential layers — from most reliable to least. Each layer builds on the one before. Never pay for a higher stratum unless the lower one is confirmed.</p>
+
+  <div class="highlight highlight-blue" style="font-size:15px;margin-bottom:2rem;">
+    <strong style="color:var(--blue2)">The core principle:</strong> Information reliability decreases as you move up the strata. Asset value is grounded in today's balance sheet — it's real. Earnings power is an estimate of normalized cash flows — reasonably reliable. Growth value is a forecast of the future — the least certain and most speculative. A true value investor anchors to the bottom, treats the middle as the primary lens, and treats growth as upside — never as the thesis.
+  </div>
+
+  <!-- STRATA VISUAL -->
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:2.5rem;border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+
+    <!-- STRATUM 1 -->
+    <div style="padding:2rem;background:var(--bg2);border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:flex-start;gap:1.5rem;">
+        <div style="min-width:48px;height:48px;border-radius:50%;background:var(--green-bg);border:1px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:400;color:var(--green);flex-shrink:0;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.4rem;">Most reliable · Balance sheet anchor</div>
+          <div style="font-size:22px;color:var(--text);margin-bottom:.5rem;">Asset value — reproduction cost</div>
+          <div style="font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1rem;">The most reliable data is what the company <em>owns right now</em>. You calculate the <strong style="color:var(--text)">Reproduction Cost of Assets</strong> — how much money would it cost a well-financed competitor to rebuild this exact business from scratch today? This is your floor. If the market cap is below reproduction cost, you're buying assets for less than it would cost to create them.</div>
+          <div class="formula-box"><div class="formula-lbl">Reproduction cost of assets</div>Start with book value → adjust tangible assets to replacement cost<br>Add: brand value, customer relationships, regulatory licenses<br>Subtract: obsolete equipment, impaired goodwill<br>= True reproduction cost a competitor would face</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
+            <div style="padding:1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border);">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:.4rem;">When to rely on it most</div>
+              <div style="font-size:13px;color:var(--text2);">Asset-heavy businesses: utilities, real estate, pipelines, regulated infrastructure, mining. The physical assets ARE the business.</div>
+            </div>
+            <div style="padding:1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border);">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.4rem;">Graham's application</div>
+              <div style="font-size:13px;color:var(--text2);">His net-net screen (buy at &lt;2/3 NCAV) is pure stratum 1 investing — buying assets at a discount before even considering earning power.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATUM 2 -->
+    <div style="padding:2rem;background:var(--bg2);border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:flex-start;gap:1.5rem;">
+        <div style="min-width:48px;height:48px;border-radius:50%;background:var(--blue-bg);border:1px solid var(--blue2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:400;color:var(--blue2);flex-shrink:0;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);margin-bottom:.4rem;">Primary lens · Greenwald's contribution</div>
+          <div style="font-size:22px;color:var(--text);margin-bottom:.5rem;">Earnings power value (EPV)</div>
+          <div style="font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1rem;">Developed by Bruce Greenwald. EPV assumes the company will <strong style="color:var(--text)">never grow</strong> — it will simply sustain its current level of normalized earnings forever. You adjust earnings for cycle, one-offs, and accounting distortions, then capitalize at the cost of capital. This is what the business is worth with zero growth priced in.</div>
+          <div class="formula-box"><div class="formula-lbl">Earnings Power Value formula</div>EPV = Adjusted EBIT × (1 − tax rate) / WACC<br><br>Step 1: Start with reported EBIT<br>Step 2: Adjust for cyclicality (use 7–10 year average margins)<br>Step 3: Add back excess D&A over maintenance capex<br>Step 4: Remove truly non-recurring items (be skeptical)<br>Step 5: Capitalize normalized after-tax earnings at WACC</div>
+          <div class="highlight highlight-gold" style="margin-top:1rem;">
+            <strong style="color:var(--gold2)">The critical signal — EPV vs Asset Value:</strong><br>
+            <span style="font-size:13px;">• EPV &gt;&gt; Asset Value → company earns well above cost of capital → <strong style="color:var(--green)">competitive moat confirmed</strong><br>
+            • EPV ≈ Asset Value → competitive equilibrium, no moat, average returns<br>
+            • EPV &lt; Asset Value → returns below cost of capital → <strong style="color:var(--red)">avoid or wait for restructuring</strong></span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
+            <div style="padding:1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border);">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue2);margin-bottom:.4rem;">Best applied to</div>
+              <div style="font-size:13px;color:var(--text2);">Mature, stable businesses with consistent earnings history. Regulated utilities, consumer staples, industrials with long operating records.</div>
+            </div>
+            <div style="padding:1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border);">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.4rem;">The Socratic case</div>
+              <div style="font-size:13px;color:var(--text2);">A regulated Western European utility with inflation-linked monopoly returns → EPV is the dominant lens. Assets anchor the floor; EPV captures the perpetual, predictable cash stream. Growth is irrelevant.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATUM 3 -->
+    <div style="padding:2rem;background:var(--bg2);">
+      <div style="display:flex;align-items:flex-start;gap:1.5rem;">
+        <div style="min-width:48px;height:48px;border-radius:50%;background:var(--gold-bg);border:1px solid var(--gold2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:400;color:var(--gold2);flex-shrink:0;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);margin-bottom:.4rem;">Least reliable · Only if moat confirmed</div>
+          <div style="font-size:22px;color:var(--text);margin-bottom:.5rem;">Growth value — future franchise</div>
+          <div style="font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1rem;">The most speculative tier. Value investors only pay for growth if — and only if — the company possesses a <strong style="color:var(--text)">definitive structural barrier to entry</strong> that prevents competitors from stealing those future profits. Without a moat, growth creates no value for shareholders because competition will erode returns back to the cost of capital before the growth materializes.</div>
+          <div class="formula-box"><div class="formula-lbl">Growth value formula</div>Growth Value = Strategic Value − EPV<br><br>Strategic Value = EPV assuming growth at above-WACC returns<br>Growth Value is only positive if ROIC on new investment &gt; WACC<br>Without moat: Growth Value = $0 (competition eliminates the surplus)</div>
+          <div class="highlight highlight-red" style="margin-top:1rem;">
+            <strong style="color:var(--red)">The most common mistake in investing:</strong> Paying for growth value in businesses without a moat. A growing commodity business, a growing retailer with no pricing power, a growing manufacturer with no switching costs — the growth creates no lasting value. Competitors enter, returns normalize, and the premium you paid evaporates.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRATA APPLICATION TABLE -->
+  <div class="col-label">Which stratum to use — by business type</div>
+  <div style="overflow-x:auto;">
+    <table class="data-table" style="min-width:650px;">
+      <tr><th>Business type</th><th>Primary stratum</th><th>Why</th><th>Example</th></tr>
+      <tr><td>Regulated utility</td><td class="good">EPV (Stratum 2)</td><td>Stable, inflation-linked monopoly earnings. Assets anchor floor.</td><td>National Grid, Enel</td></tr>
+      <tr><td>Net-net / liquidation</td><td class="good">Asset Value (Stratum 1)</td><td>Earnings unreliable or negative. Pure asset play.</td><td>Graham-era deep value screens</td></tr>
+      <tr><td>Consumer franchise w/ moat</td><td class="neutral">EPV + Growth (2+3)</td><td>Stable earnings + reinvestment at above-WACC returns confirmed</td><td>Coca-Cola, See's Candies</td></tr>
+      <tr><td>Commodity manufacturer</td><td class="good">Asset Value (Stratum 1)</td><td>No pricing power, earnings volatile. Reproduction cost is the anchor.</td><td>Steel mills, basic chemicals</td></tr>
+      <tr><td>High-growth tech (no moat)</td><td class="bad">Avoid all three</td><td>Assets low, earnings negative, growth destroys value without moat</td><td>Most SaaS startups</td></tr>
+      <tr><td>Platform with network effect</td><td class="neutral">EPV + Growth (2+3)</td><td>Moat is strong — growth value is real and defensible</td><td>Visa, MSCI, Bloomberg</td></tr>
+    </table>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION NEW-B: BUFFETT'S TENETS -->
+<!-- ============================================================ -->
+<div id="buffett-tenets"></div>
+<div class="section">
+  <div class="section-eye">Warren Buffett's framework</div>
+  <h2 class="section-title">Buffett's four tenets.</h2>
+  <p class="section-desc">Buffett's investment framework organized into four categories. Not a checklist to run mechanically — a philosophy to internalize. Every great Berkshire investment passes all four.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2rem;">
+
+    <!-- BUSINESS TENETS -->
+    <div style="border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <div style="padding:1.25rem 1.5rem;background:var(--blue-bg);border-bottom:1px solid var(--border);">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);margin-bottom:.25rem;">Tenet 1</div>
+        <div style="font-size:20px;color:var(--text);">Business tenets</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--bg2);">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--blue2);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Simple and understandable</div>
+            <div style="font-size:12px;color:var(--text2);">If you can't explain how the business makes money in two sentences, you don't understand it. Buffett's circle of competence principle — complexity is a red flag, not a feature.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--blue2);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Consistent operating history</div>
+            <div style="font-size:12px;color:var(--text2);">Stable, predictable operating earnings over many years. Buffett avoids turnarounds — "a good jockey does best on a good horse." 10+ years of consistent results is the minimum signal.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--blue2);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Favorable long-term prospects</div>
+            <div style="font-size:12px;color:var(--text2);">The business must be in an industry that will still matter in 20 years. Buffett refused to invest in newspapers once digital disruption became clear — even though they were cheap. Industry tailwinds matter.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANAGEMENT TENETS -->
+    <div style="border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <div style="padding:1.25rem 1.5rem;background:var(--purple-bg);border-bottom:1px solid var(--border);">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:.25rem;">Tenet 2</div>
+        <div style="font-size:20px;color:var(--text);">Management tenets</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--bg2);">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--purple);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Candid and transparent</div>
+            <div style="font-size:12px;color:var(--text2);">Managers who acknowledge mistakes, explain failures honestly, and communicate bad news as readily as good news. Red flag: annual reports that only celebrate wins. Buffett reads competitor annual reports to understand what honest disclosure looks like.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--purple);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Leaders, not followers</div>
+            <div style="font-size:12px;color:var(--text2);">Management that resists institutional imperative — the tendency to copy competitors, make unnecessary acquisitions, and chase trends. The best managers do what's right for the business, not what Wall Street rewards in the short term.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--purple);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Rational capital allocation</div>
+            <div style="font-size:12px;color:var(--text2);">The most important management skill. Retained earnings should be deployed where they earn the highest return — buybacks when stock is cheap, dividends when reinvestment opportunities are scarce, acquisitions only at rational prices.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINANCIAL TENETS -->
+    <div style="border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <div style="padding:1.25rem 1.5rem;background:var(--gold-bg);border-bottom:1px solid var(--border);">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);margin-bottom:.25rem;">Tenet 3</div>
+        <div style="font-size:20px;color:var(--text);">Financial tenets</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--bg2);">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--gold2);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">High return on equity (owner earnings)</div>
+            <div style="font-size:12px;color:var(--text2);">Buffett uses a modified ROE based on owner earnings rather than reported net income. Must be consistently above 15% without excessive leverage.</div>
+            <div class="formula-box" style="font-size:12px;margin-top:8px;"><div class="formula-lbl">Owner earnings</div>Owner Earnings = Net Income + D&A − Maintenance CapEx ± Working Capital Δ</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--gold2);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">High and stable profit margins</div>
+            <div style="font-size:12px;color:var(--text2);">Gross margins and operating margins should be stable or expanding over time. Declining margins signal competitive erosion — someone is taking pricing power away from the business. Buffett wants managers who control costs obsessively.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--gold2);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">For every dollar retained, at least one dollar of market value created</div>
+            <div style="font-size:12px;color:var(--text2);">Buffett's famous test: over a rolling 5-year period, has $1 of retained earnings created at least $1 of market value? If not, management is destroying capital. Dividends would have served shareholders better.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKET TENETS -->
+    <div style="border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <div style="padding:1.25rem 1.5rem;background:var(--green-bg);border-bottom:1px solid var(--border);">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.25rem;">Tenet 4</div>
+        <div style="font-size:20px;color:var(--text);">Market tenets</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--bg2);">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--green);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Use conservative estimates + riskless rate</div>
+            <div style="font-size:12px;color:var(--text2);">Buffett discounts future earnings at the long-term US Treasury rate — not an inflated WACC — because he only buys businesses he's certain about. Certainty replaces the risk premium. Then he uses conservative, not optimistic, earnings estimates.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--green);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Buy at attractive prices when investors turn away</div>
+            <div style="font-size:12px;color:var(--text2);">In keeping with the Mr. Market view — the best prices appear when the investment is unpopular, misunderstood, or temporarily impaired. Buffett bought heavily during 1973–74, 2008–09, and every major market dislocation. Fear creates opportunity.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--green);">
+            <div style="font-size:13px;font-weight:400;color:var(--text);margin-bottom:3px;">Determine intrinsic value, then require margin of safety</div>
+            <div style="font-size:12px;color:var(--text2);">Calculate conservatively, then demand a further discount. The margin of safety is not just theoretical protection — it's the source of above-average returns. Buying at 60 cents on the dollar means you profit on the way to fair value even if your growth thesis is wrong.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight highlight-blue">
+    <strong style="color:var(--blue2)">How to use Buffett's tenets in practice:</strong> Go through each tenet before writing your investment thesis. If a company fails on management candor (Tenet 2) or has declining margins (Tenet 3), stop — no valuation can save a bad business run by bad managers. Buffett has said the biggest mistakes of his career were buying mediocre businesses at cheap prices, not expensive businesses at rich prices.
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION NEW-C: DEEP ACCOUNTING SKEPTICISM -->
+<!-- ============================================================ -->
+<div id="acct-deep"></div>
+<div class="section">
+  <div class="section-eye">Section — Quality of Earnings Deep Dive</div>
+  <h2 class="section-title">Accounting skepticism.</h2>
+  <p class="section-desc">University value investing courses spend weeks on this. Audited financial statements are the starting point — not the answer. Your job is to find what the numbers are hiding.</p>
+
+  <div class="col-label">Working capital — the hidden cash drain</div>
+  <div class="grid2" style="margin-bottom:2rem;">
+    <div class="card">
+      <div class="card-label" style="color:var(--red);">Red flag: inventory piling up</div>
+      <div class="card-title">Inventory / sales ratio rising</div>
+      <div class="card-body">
+        When inventory grows faster than revenue, the company is producing more than it's selling. Classic warning sign of:
+        <br>— Future write-downs (inventory marked down or scrapped)
+        <br>— Margin compression (markdowns needed to clear stock)
+        <br>— Working capital cash drain (cash tied up in unsold goods)
+        <br>— In macro context: rising inventory was one of the Q4 2024 GDP red flags
+        <div class="formula-box" style="margin-top:.75rem;font-size:12px;"><div class="formula-lbl">Inventory days (DIO)</div>DIO = (Inventory / COGS) × 365 — Rising DIO = warning</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label" style="color:var(--red);">Red flag: receivables expanding</div>
+      <div class="card-title">Days Sales Outstanding rising</div>
+      <div class="card-body">
+        Revenue is recognized when goods are shipped — but if customers aren't paying, it's not real cash. DSO rising faster than revenue growth = classic channel stuffing or aggressive recognition.
+        <br><br>Also check: accounts receivable as % of revenue trend. If receivables grow 30% while revenue grows 10% — something is wrong.
+        <div class="formula-box" style="margin-top:.75rem;font-size:12px;"><div class="formula-lbl">Days Sales Outstanding</div>DSO = (Accounts Receivable / Revenue) × 365<br>Compare to prior years and industry peers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-label">Capital expenditure — the most manipulated line item</div>
+  <div style="margin-bottom:2rem;">
+    <div class="acc-item open" id="acc-capex">
+      <div class="acc-header" onclick="toggleAcc('acc-capex')"><span class="acc-title">Maintenance capex vs growth capex — why it matters</span><span class="acc-arrow">↓</span></div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1rem;">Companies report total capex — they <em>never</em> break out how much is just to keep existing assets running (maintenance) vs how much is building new capacity (growth). A company can make its free cash flow look artificially high by underspending on maintenance capex, letting assets deteriorate. This is particularly common when management is being acquired or when short-term incentives dominate.</p>
+        <div class="grid2">
+          <div>
+            <div class="formula-box"><div class="formula-lbl">Buffett's owner earnings (true FCF)</div>Owner Earnings = Net Income + D&A − Maintenance CapEx<br><br>Maintenance CapEx ≈ D&A for stable businesses<br>Growth CapEx = Total CapEx − Maintenance CapEx</div>
+          </div>
+          <div>
+            <div style="padding:1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border);">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.5rem;">How to estimate maintenance capex</div>
+              <div style="font-size:13px;color:var(--text2);">1. Ask: what would FCF be if the company stopped growing?<br>2. Compare D&A to capex — for stable businesses they should track closely<br>3. Check capex vs competitors on a per-unit or per-asset basis<br>4. Read MD&A disclosures — management sometimes hints at the split</div>
+            </div>
+          </div>
+        </div>
+        <div class="highlight highlight-red" style="margin-top:1rem;">
+          <strong style="color:var(--red)">Classic trap:</strong> A capital-intensive industrial company with $200M D&A and $50M reported "FCF" — but $180M of that capex is maintenance. True owner earnings are actually negative. The reported FCF is an illusion.
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-obs">
+      <div class="acc-header" onclick="toggleAcc('acc-obs')"><span class="acc-title">Off-balance sheet liabilities — hidden claims on equity</span><span class="acc-arrow">↓</span></div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1rem;">Three major categories of liabilities that don't always appear clearly on the balance sheet but absolutely reduce the value of your equity claim:</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--red);">
+            <div style="font-size:13px;color:var(--text);margin-bottom:3px;">Operating leases</div>
+            <div style="font-size:12px;color:var(--text2);">Post-IFRS 16 / ASC 842, most leases are on-balance sheet. But check: are there short-term leases excluded? Lease obligations represent real, fixed cash outflows. For retailers, restaurants, and airlines — lease liabilities can dwarf reported debt.</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--red);">
+            <div style="font-size:13px;color:var(--text);margin-bottom:3px;">Pension deficits</div>
+            <div style="font-size:12px;color:var(--text2);">Defined benefit pension plans create a liability when the plan's assets are less than its obligations. This underfunding is real debt — it must eventually be funded from operating cash flows. Check note disclosures for pension funded status and discount rate assumptions (management can manipulate the discount rate to reduce reported liability).</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--red);">
+            <div style="font-size:13px;color:var(--text);margin-bottom:3px;">Contingent liabilities & legal</div>
+            <div style="font-size:12px;color:var(--text2);">Lawsuits, environmental remediation, product liability — disclosed in footnotes, often vague. Read the legal proceedings section of every 10-K carefully. Companies systematically understate these because "probable and estimable" is a high bar for recognition. Ask: what's the worst-case scenario?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-earnings-quality">
+      <div class="acc-header" onclick="toggleAcc('acc-earnings-quality')"><span class="acc-title">The earnings quality score — 9 signals to check</span><span class="acc-arrow">↓</span></div>
+      <div class="acc-body">
+        <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;">Based on the Beneish M-Score and Sloan Accruals research. These signals statistically predict earnings manipulation.</p>
+        <table class="data-table">
+          <tr><th>Signal</th><th>What to check</th><th>Red flag if...</th></tr>
+          <tr><td>DSO change</td><td>Accounts receivable / Revenue</td><td class="bad">Rising faster than peers</td></tr>
+          <tr><td>Gross margin change</td><td>Year-over-year gross margin</td><td class="bad">Declining while revenue grows</td></tr>
+          <tr><td>Asset quality</td><td>Non-current assets ex PP&E / Total assets</td><td class="bad">Rising (intangibles/goodwill growing)</td></tr>
+          <tr><td>Revenue growth vs peers</td><td>Compare to industry average</td><td class="bad">Significantly above peers without explanation</td></tr>
+          <tr><td>Capex vs D&A</td><td>CapEx / D&A ratio</td><td class="bad">Declining sharply (underinvesting)</td></tr>
+          <tr><td>Accruals ratio</td><td>(Net Income − CFO) / Total Assets</td><td class="bad">Large positive accruals (earnings not backed by cash)</td></tr>
+          <tr><td>Leverage change</td><td>Total Debt / Total Assets trend</td><td class="bad">Rising leverage without growing earnings</td></tr>
+          <tr><td>Stock comp / revenue</td><td>SBC as % of revenue</td><td class="bad">&gt;5% (especially in "adjusted" EBITDA companies)</td></tr>
+          <tr><td>Auditor changes</td><td>10-K auditor history</td><td class="bad">Frequent changes or material weakness disclosures</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION NEW-D: THE STOCK PITCH -->
+<!-- ============================================================ -->
+<div id="stock-pitch"></div>
+<div class="section">
+  <div class="section-eye">Section — The Capstone Skill</div>
+  <h2 class="section-title">The stock pitch.</h2>
+  <p class="section-desc">The capstone of any university value investing curriculum. You find an unloved, obscure, or misunderstood stock — and you pitch it to a panel of fund managers. This is exactly what Contrapposto Research should produce.</p>
+
+  <div class="highlight highlight-gold" style="margin-bottom:2rem;">
+    <strong style="color:var(--gold2)">The model:</strong> Students are required to find a stock no one else is talking about, perform primary research (talk to competitors, suppliers, customers — not just read sell-side reports), calculate intrinsic value using the three strata framework, and present a buy or sell recommendation with a price target. The panel questions are Socratic and adversarial. You must know the bear case better than the bulls.
+  </div>
+
+  <!-- PITCH STRUCTURE -->
+  <div class="col-label">The 5-part stock pitch structure</div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;">
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="padding:1rem 1.5rem;background:var(--bg2);display:flex;align-items:center;gap:1.25rem;">
+        <div style="font-size:24px;font-weight:400;color:var(--blue2);min-width:36px;">1</div>
+        <div>
+          <div style="font-size:16px;color:var(--text);">Business overview — what does it actually do?</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">Two sentences max. If you can't do it in two, you don't understand it (Buffett Tenet 1). Name the business model, who pays them, why customers can't easily leave.</div>
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="padding:1rem 1.5rem;background:var(--bg2);display:flex;align-items:center;gap:1.25rem;">
+        <div style="font-size:24px;font-weight:400;color:var(--blue2);min-width:36px;">2</div>
+        <div>
+          <div style="font-size:16px;color:var(--text);">Why is it misunderstood? — your variant perception</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">This is the most important slide. Why does the market have it wrong? Temporary impairment? Accounting complexity? Spin-off overhang? Sector sentiment? Without a clear answer, there's no thesis — just hope.</div>
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="padding:1rem 1.5rem;background:var(--bg2);display:flex;align-items:center;gap:1.25rem;">
+        <div style="font-size:24px;font-weight:400;color:var(--blue2);min-width:36px;">3</div>
+        <div>
+          <div style="font-size:16px;color:var(--text);">Valuation — three strata, football field</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">Asset value (floor), EPV (primary), growth value (upside if moat confirmed). Show the football field — range of values across methods. State your price target and margin of safety. Be specific.</div>
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="padding:1rem 1.5rem;background:var(--bg2);display:flex;align-items:center;gap:1.25rem;">
+        <div style="font-size:24px;font-weight:400;color:var(--blue2);min-width:36px;">4</div>
+        <div>
+          <div style="font-size:16px;color:var(--text);">Catalysts — what will close the gap?</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">Value alone doesn't make money — you need a reason for the gap to close. Earnings inflection, management change, spin-off, activist investor, regulatory resolution, debt paydown. Without a catalyst, you may be right but early — which in finance feels the same as wrong.</div>
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="padding:1rem 1.5rem;background:var(--bg2);display:flex;align-items:center;gap:1.25rem;">
+        <div style="font-size:24px;font-weight:400;color:var(--blue2);min-width:36px;">5</div>
+        <div>
+          <div style="font-size:16px;color:var(--text);">Risks & bear case — know this better than anyone</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">State the three most compelling reasons the investment fails. What would make you wrong? What would cause you to sell? A panel will always go here — if you haven't thought it through, you lose credibility on everything else.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIMARY RESEARCH -->
+  <div class="col-label">Primary research — what separates great pitches</div>
+  <div class="grid3" style="margin-bottom:2rem;">
+    <div class="card" style="border-top:3px solid var(--blue2);">
+      <div class="card-label" style="color:var(--blue2);">Talk to customers</div>
+      <div class="card-body">Are they happy? Would they switch if a competitor offered 10% cheaper? How deeply embedded is the product? This is the moat test in real life — not in a spreadsheet.</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--gold2);">
+      <div class="card-label" style="color:var(--gold2);">Talk to competitors</div>
+      <div class="card-body">What do they think of the target company? Where do they compete directly? Where do they avoid competing? Competitor fear is one of the best moat signals available.</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--green);">
+      <div class="card-label" style="color:var(--green);">Read primary sources</div>
+      <div class="card-body">10-K, 10-Q, proxy statements, earnings transcripts — every word, including footnotes. The best information is in what management tries to make boring. If it's hidden, it matters.</div>
+    </div>
+  </div>
+
+  <!-- SOCRATIC CHALLENGE -->
+  <div class="col-label">Socratic challenge — practice your thinking</div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+    <div style="padding:1.5rem;background:var(--blue-bg);border-bottom:1px solid var(--border);">
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue2);margin-bottom:.4rem;">Case study</div>
+      <div style="font-size:18px;color:var(--text);">A major regulated electric utility in Western Europe</div>
+    </div>
+    <div style="padding:1.5rem;">
+      <div style="font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1.25rem;">The company owns transmission lines. It has a government-guaranteed monopoly in its region. Its allowed returns are set by the regulator and tied directly to inflation. It has operated consistently for 40 years.</div>
+      <div style="padding:1.25rem;background:var(--bg3);border-radius:10px;border-left:3px solid var(--gold2);margin-bottom:1.25rem;">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2);margin-bottom:.5rem;">The question</div>
+        <div style="font-size:15px;color:var(--text);font-style:italic;">Which of the three strata do you rely on most — Asset Value, Earnings Power Value, or Growth Value? Why?</div>
+      </div>
+      <div style="padding:1.25rem;background:var(--green-bg);border-radius:10px;border:1px solid var(--green);">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:.5rem;">The answer — EPV (Stratum 2)</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.75;">Asset Value anchors the floor — transmission infrastructure is expensive to reproduce and you'd use it to confirm you're not overpaying for the physical assets. But EPV is your primary lens because the government-guaranteed, inflation-linked monopoly earnings are extraordinarily predictable — more reliable than almost any other cash flow stream in finance. You capitalize normalized regulated earnings at a rate reflecting near-zero competition risk.<br><br>Growth Value is largely irrelevant — regulated utilities don't grow organically. Any growth comes from new regulated assets (which earn regulated, not excess, returns). You would not pay for growth here. The entire investment thesis is: stable, inflation-protected, monopoly cash flows at a rational multiple. EPV is the answer.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: SPECIAL SITUATIONS -->
+<!-- ============================================================ -->
+<div id="special"></div>
+<div class="section">
+  <div class="section-eye">Section VII — Greenblatt's domain</div>
+  <h2 class="section-title">Special situations.</h2>
+  <p class="section-desc">Where M&A meets value investing. Joel Greenblatt's "Stock Market Genius" is the bible here. Special situations create temporary mispricings because institutional investors are forced sellers or can't own the security.</p>
+
+  <div class="sit-card">
+    <div class="sit-name">🏭 Spinoffs</div>
+    <div class="sit-desc">When a parent company spins off a subsidiary, institutional holders of the parent often dump the spinoff — it's too small for their mandates. This creates forced selling pressure, not fundamental value destruction. Spinoffs historically outperform the market by 10%+ in years 1–3 post-separation. Look for: management incentives aligned with spinoff (they're getting options in it), parent motivated to help spinoff succeed, spinoff in a different sector than parent (forced selling by sector-specific funds).</div>
+    <div class="sit-example">Classic examples: Sears spinoff of Dean Witter / Allstate, Philip Morris spinoff of Kraft, GE spinoffs</div>
+  </div>
+  <div class="sit-card">
+    <div class="sit-name">🔄 Mergers & merger arbitrage</div>
+    <div class="sit-desc">When an acquisition is announced, the target's stock trades below the deal price — the "arb spread" reflects deal completion risk. If you believe the deal closes, buying the spread is a low-risk, time-bounded return. Value investors like Graham used this as a cash alternative. Key analysis: antitrust risk, financing risk, regulatory approval timeline, break-up fee size.</div>
+    <div class="sit-example">Spread = (Deal price − Current price) / Current price. Annualized if deal closes in 3 months, multiply spread × 4.</div>
+  </div>
+  <div class="sit-card">
+    <div class="sit-name">📋 Liquidations</div>
+    <div class="sit-desc">Companies being wound down create known future cash flows. If liquidation value > current market price, you're getting paid to wait. Most investors ignore these because there's no exciting story. Graham's net-net approach is essentially a partial-liquidation framework — you're buying assets at a discount and waiting for value to be realized.</div>
+    <div class="sit-example">Screen for: announced liquidation + market price < estimated liquidation value. Rare but high-conviction when found.</div>
+  </div>
+  <div class="sit-card">
+    <div class="sit-name">🔃 Recapitalizations & stubs</div>
+    <div class="sit-desc">When a company does a leveraged recap, it pays out a large special dividend funded by debt. The residual "stub" equity often trades cheaply because it's complex and leveraged. Sophisticated analysis of the stub's cash flows relative to its price can reveal significant value.</div>
+    <div class="sit-example">Greenblatt's canonical example: Marriott 1992 split into Marriott International + Host Marriott. The stub (Host) was deeply mispriced at spin.</div>
+  </div>
+  <div class="sit-card">
+    <div class="sit-name">📉 Distressed debt & bankruptcies</div>
+    <div class="sit-desc">Companies in or near bankruptcy have complex capital structures. Bonds trade at cents on the dollar. The "fulcrum security" — the class of debt that will be converted to equity in reorganization — is often the best risk-reward. Requires deep credit analysis, legal knowledge, and patience. Klarman and Marks built careers here.</div>
+    <div class="sit-example">Key concept: identify where in the capital structure value "breaks" — that's your entry point. Above that = full recovery. Below = wipeout.</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: MENTAL MODELS -->
+<!-- ============================================================ -->
+<div id="mental"></div>
+<div class="section">
+  <div class="section-eye">Section VIII</div>
+  <h2 class="section-title">Mental models.</h2>
+  <p class="section-desc">What separates great investors isn't better spreadsheets — it's better thinking. These are the mental models that define the value investing tradition.</p>
+
+  <div class="grid2">
+    <div>
+      <div class="acc-item open" id="acc-mm1">
+        <div class="acc-header" onclick="toggleAcc('acc-mm1')"><span class="acc-title">Second-level thinking (Howard Marks)</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">First-level: "This is a great company, I should buy it." Second-level: "This is a great company, but everyone knows it's great, so the price already reflects that." You need to be right about the business AND be right about what the market is missing.</p>
+          <div class="highlight highlight-blue" style="font-size:13px;margin-top:.75rem;">"To outperform the average investor, you have to think differently from the consensus AND be right." — Howard Marks</div>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-mm2">
+        <div class="acc-header" onclick="toggleAcc('acc-mm2')"><span class="acc-title">Inversion (Charlie Munger)</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Don't just think about how to succeed — think about how you could fail. "All I want to know is where I'm going to die, so I'll never go there." Before buying, list every reason the investment could fail. If you can't explain the bear case better than the bulls, you don't understand it well enough.</p>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-mm3">
+        <div class="acc-header" onclick="toggleAcc('acc-mm3')"><span class="acc-title">Variant perception</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">To make money in markets, your view must differ from consensus AND you must be right. Ask: "What do I know or believe that the market doesn't?" If your thesis is the same as the sell-side consensus, there's no edge. The best investments often look obviously wrong to most people.</p>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-mm4">
+        <div class="acc-header" onclick="toggleAcc('acc-mm4')"><span class="acc-title">Mr. Market allegory (Graham)</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Imagine owning a business with a partner named Mr. Market. Every day he offers to buy your share or sell you his at a stated price. Some days he's ecstatic and prices too high. Some days he's depressed and prices too low. You are free to ignore him. Your job is to take advantage of him — never let his emotions influence your assessment of value.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="acc-item open" id="acc-mm5">
+        <div class="acc-header" onclick="toggleAcc('acc-mm5')"><span class="acc-title">Circle of competence</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">The most important thing in investing is knowing what you know and what you don't. Define your circle honestly. Then only invest inside it. Expand the circle slowly through deliberate study. Buffett passed on Amazon, Google, and Bitcoin — not because he was wrong about them, but because he knew he couldn't value them with confidence.</p>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-mm6">
+        <div class="acc-header" onclick="toggleAcc('acc-mm6')"><span class="acc-title">Reflexivity (George Soros)</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Markets don't just reflect reality — they shape it. Rising stock prices improve a company's ability to raise capital and make acquisitions, which justifies higher prices. Falling prices do the reverse. Value investors must understand when reflexivity is working against them in distressed situations — falling prices can become self-fulfilling.</p>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-mm7">
+        <div class="acc-header" onclick="toggleAcc('acc-mm7')"><span class="acc-title">Patience as a competitive advantage</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">Most institutional investors are measured quarterly. This creates structural opportunity for patient capital. Buffett's famous "weighted-bat" concept: in investing, unlike baseball, you don't have to swing at every pitch. Wait for your pitch — then swing hard. Inactivity is often the right answer.</p>
+          <div class="highlight highlight-blue" style="font-size:13px;margin-top:.75rem;">"The stock market is a device for transferring money from the impatient to the patient." — Buffett</div>
+        </div>
+      </div>
+      <div class="acc-item" id="acc-mm8">
+        <div class="acc-header" onclick="toggleAcc('acc-mm8')"><span class="acc-title">The Kelly criterion — position sizing</span><span class="acc-arrow">↓</span></div>
+        <div class="acc-body">
+          <p style="font-size:14px;color:var(--text2);line-height:1.6;">How much to bet when you have edge. The Kelly formula: bet size = (edge/odds). Concentration is required for outperformance — but it requires high-conviction ideas. Munger: "Diversification is for people who don't know what they're doing." Buffett rarely holds more than 10 significant positions.</p>
+          <div class="formula-box" style="font-size:12px;"><div class="formula-lbl">Kelly formula</div>f* = (bp − q) / b<br>b = odds, p = probability of win, q = probability of loss (1−p)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 9: QUIZ -->
+<!-- ============================================================ -->
+<div id="quiz"></div>
+<div class="section">
+  <div class="section-eye">Section IX — Practice</div>
+  <h2 class="section-title">Test your knowledge.</h2>
+  <p class="section-desc">Conceptual questions that test whether you understand, not just memorize.</p>
+
+  <div class="quiz-card">
+    <div id="quiz-content"></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 10: CHECKLIST -->
+<!-- ============================================================ -->
+<div id="checklist"></div>
+<div class="section">
+  <div class="section-eye">Section X</div>
+  <h2 class="section-title">The value investor's checklist.</h2>
+  <p class="section-desc">Before any investment decision. Inspired by Atul Gawande's Checklist Manifesto — applied to stock picking. Saves in your browser.</p>
+
+  <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
+  <div id="cl-progress" style="font-size:12px;color:var(--text3);margin-bottom:1.5rem;">0 of 20 completed</div>
+  <div id="checklist-list"></div>
+</div>
+
+<footer>
+  <div class="footer-brand">Value Investing · Contrapposto Research · Graham & Dodd Tradition</div>
+  <div class="footer-note">"The market is there to serve you, not to instruct you." — Ben Graham</div>
+</footer>
+
+<script>
+function toggleTheme(){
+  const h=document.documentElement;
+  const b=document.getElementById('tbtn');
+  if(h.getAttribute('data-theme')==='dark'){h.setAttribute('data-theme','light');b.textContent='🌙';}
+  else{h.setAttribute('data-theme','dark');b.textContent='☀️';}
+}
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+function toggleAcc(id){document.getElementById(id).classList.toggle('open');}
+
+// sticky tab highlight
+window.addEventListener('scroll',()=>{
+  const tabs=document.querySelectorAll('.stab');
+  const sections=['foundation','graham','valuation','moats','financials','macro-vi','special','mental','quiz','checklist'];
+  let current=0;
+  sections.forEach((s,i)=>{
+    const el=document.getElementById(s);
+    if(el&&el.getBoundingClientRect().top<120)current=i;
+  });
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===current));
+});
+
+// DCF
+function calcDCF(){
+  const fcf=+document.getElementById('fcf').value;
+  const gr1=+document.getElementById('gr1').value/100;
+  const gr2=+document.getElementById('gr2').value/100;
+  const tgr=+document.getElementById('tgr').value/100;
+  const wacc=+document.getElementById('wacc').value/100;
+  const mkt=+document.getElementById('mktprice').value;
+
+  document.getElementById('fcf-v').textContent='$'+fcf+'M';
+  document.getElementById('gr1-v').textContent=Math.round(gr1*100)+'%';
+  document.getElementById('gr2-v').textContent=Math.round(gr2*100)+'%';
+  document.getElementById('tgr-v').textContent=(tgr*100).toFixed(1)+'%';
+  document.getElementById('wacc-v').textContent=(wacc*100).toFixed(1)+'%';
+  document.getElementById('mktprice-v').textContent='$'+mkt+'M';
+
+  let pv=0,cf=fcf;
+  for(let i=1;i<=5;i++){cf*=(1+gr1);pv+=cf/Math.pow(1+wacc,i);}
+  for(let i=6;i<=10;i++){cf*=(1+gr2);pv+=cf/Math.pow(1+wacc,i);}
+  const tv=(cf*(1+tgr))/(wacc-tgr);
+  const pvtv=tv/Math.pow(1+wacc,10);
+  const intrinsic=Math.round(pv+pvtv);
+  const mos=Math.round((intrinsic-mkt)/intrinsic*100);
+
+  document.getElementById('dcf-intrinsic').textContent='$'+intrinsic.toLocaleString()+'M';
+  const mosEl=document.getElementById('dcf-mos');
+  const verdictEl=document.getElementById('dcf-verdict');
+  if(mos>33){
+    mosEl.style.background='var(--green-bg)';mosEl.style.color='var(--green)';
+    mosEl.textContent='Margin of safety: '+mos+'%';
+    verdictEl.style.background='var(--green-bg)';verdictEl.style.color='var(--green)';
+    verdictEl.textContent='Strong BUY ✓';
+  } else if(mos>15){
+    mosEl.style.background='var(--gold-bg)';mosEl.style.color='var(--gold2)';
+    mosEl.textContent='Margin of safety: '+mos+'%';
+    verdictEl.style.background='var(--gold-bg)';verdictEl.style.color='var(--gold2)';
+    verdictEl.textContent='Possible buy — verify';
+  } else if(mos>0){
+    mosEl.style.background='var(--red-bg)';mosEl.style.color='var(--red)';
+    mosEl.textContent='Margin of safety: '+mos+'% (thin)';
+    verdictEl.style.background='var(--red-bg)';verdictEl.style.color='var(--red)';
+    verdictEl.textContent='No margin of safety';
+  } else {
+    mosEl.style.background='var(--red-bg)';mosEl.style.color='var(--red)';
+    mosEl.textContent='Overvalued by '+(Math.abs(mos))+'%';
+    verdictEl.style.background='var(--red-bg)';verdictEl.style.color='var(--red)';
+    verdictEl.textContent='AVOID — overvalued';
+  }
+}
+calcDCF();
+
+// RATIO CALCULATOR
+function calcRatios(){
+  const mc=+document.getElementById('r-mktcap').value||1;
+  const ni=+document.getElementById('r-ni').value||1;
+  const eb=+document.getElementById('r-ebitda').value||1;
+  const rev=+document.getElementById('r-rev').value||1;
+  const book=+document.getElementById('r-book').value||1;
+  const fcf=+document.getElementById('r-fcf').value||1;
+  const debt=+document.getElementById('r-debt').value||0;
+  const cash=+document.getElementById('r-cash').value||0;
+  const ev=mc+debt-cash;
+
+  const ratios=[
+    {lbl:'P/E',val:(mc/ni).toFixed(1)+'x',good:v=>v<15,bad:v=>v>25,raw:mc/ni},
+    {lbl:'P/B',val:(mc/book).toFixed(1)+'x',good:v=>v<1.5,bad:v=>v>3,raw:mc/book},
+    {lbl:'EV/EBITDA',val:(ev/eb).toFixed(1)+'x',good:v=>v<8,bad:v=>v>15,raw:ev/eb},
+    {lbl:'P/FCF',val:(mc/fcf).toFixed(1)+'x',good:v=>v<15,bad:v=>v>25,raw:mc/fcf},
+    {lbl:'EV/Revenue',val:(ev/rev).toFixed(1)+'x',good:v=>v<1,bad:v=>v>3,raw:ev/rev},
+    {lbl:'D/E ratio',val:(debt/book).toFixed(2)+'x',good:v=>v<0.5,bad:v=>v>1.5,raw:debt/book},
+  ];
+
+  document.getElementById('ratio-results').innerHTML=ratios.map(r=>{
+    const isGood=r.good(r.raw);const isBad=r.bad(r.raw);
+    const color=isGood?'var(--green)':isBad?'var(--red)':'var(--gold2)';
+    const flag=isGood?'✓ Cheap':isBad?'✗ Expensive':'~ Fair';
+    const flagColor=isGood?'var(--green)':isBad?'var(--red)':'var(--gold2)';
+    return `<div class="ratio-result"><div class="ratio-result-val" style="color:${color}">${r.val}</div><div class="ratio-result-lbl">${r.lbl}</div><div class="ratio-result-flag" style="color:${flagColor}">${flag}</div></div>`;
+  }).join('');
+}
+calcRatios();
+
+// QUIZ
+const QUIZ=[
+  {q:"Ben Graham requires a current ratio above 2.0x (Screen #7). What is the current ratio and why does Graham care about it?",opts:["Current Assets / Current Liabilities — measures short-term ability to pay obligations","Revenue / Current Liabilities — measures operational efficiency","Total Assets / Total Debt — measures overall solvency","EBITDA / Interest Expense — measures debt serviceability"],ans:0,explain:"Current Ratio = Current Assets / Current Liabilities. Graham required >2.0x meaning the company can pay all short-term obligations twice over. This protects against near-term financial distress even if the business temporarily deteriorates."},
+  {q:"A company has net income of $50M but free cash flow of only $10M, consistently for 5 years. What does this signal?",opts:["The company is growing rapidly and reinvesting aggressively","The company may be manipulating earnings through aggressive accounting or high capex","The company has very low depreciation relative to capex","This is normal and expected for manufacturing businesses"],ans:1,explain:"A persistent, large gap between net income and FCF is a red flag. Either (1) aggressive revenue recognition, (2) capitalization of expenses that should be expensed, (3) unsustainably high capex. Legitimate businesses where earnings >> FCF are rare. Cash flow is much harder to manipulate than earnings."},
+  {q:"What is the key difference between Graham's 'defensive' investor and 'enterprising' investor?",opts:["Defensive invests only in bonds; enterprising invests only in stocks","Defensive uses passive screening for safety; enterprising does active security analysis for bargains","Defensive holds forever; enterprising trades frequently","Defensive buys blue chips; enterprising buys small caps"],ans:1,explain:"The defensive investor wants safety with minimal effort — diversified portfolio of large-cap, dividend-paying stocks meeting Graham's screens. The enterprising investor actively hunts for bargains requiring significant analytical work. Graham didn't think one was better — it depends on time, temperament, and skill."},
+  {q:"A steel company earned $12/share last year. Its 10-year average earnings are $4/share. The stock trades at $48. How should a value investor think about the P/E?",opts:["P/E = 4x — extremely cheap, strong buy","P/E = 12x on normalized earnings — looks reasonable","P/E = 12x current, but on 10-year normalized earnings the P/E is 12x — fairly valued","The P/E is 4x on current earnings but 12x on normalized earnings — looks cheap but may not be"],ans:3,explain:"Cyclical companies must be valued on normalized (through-cycle) earnings. Current P/E = $48/$12 = 4x looks incredibly cheap. But normalized P/E = $48/$4 = 12x — much less exciting. Graham's screens require examining 10-year EPS. This is the classic 'value trap' in cyclicals — buying at peak earnings that won't be sustained."},
+  {q:"Bruce Greenwald's Earnings Power Value (EPV) equals Asset Value. What does this tell you?",opts:["The company has a strong economic moat and earns above cost of capital","The company is at competitive equilibrium — no moat, earns exactly its cost of capital","The company is destroying value and should be avoided","EPV = Asset Value means the stock is fairly priced and should be held"],ans:1,explain:"EPV = Asset Value is the competitive equilibrium — the company earns exactly its cost of capital. No excess returns, no moat. EPV > Asset Value means the company earns above cost of capital (has a moat). EPV < Asset Value means competition hasn't finished eroding returns yet — avoid. This is Greenwald's central contribution to modern value investing."},
+  {q:"What is Buffett's concept of 'owner earnings' and why does it differ from reported FCF?",opts:["Owner earnings = Net Income + Dividends paid","Owner earnings = Net Income + D&A − Maintenance Capex ± Working capital changes","Owner earnings = EBITDA − Total Capex","Owner earnings = Free Cash Flow as reported on the cash flow statement"],ans:1,explain:"Owner earnings = Net Income + D&A − Maintenance CapEx ± Working Capital changes. It differs from reported FCF because growth capex is excluded — Buffett only counts the capex needed to maintain current competitive position. A company spending $200M on growth capex looks like it has less FCF — but the owner earnings (what the owner actually gets) may be much higher."},
+  {q:"Howard Marks says 'you can't predict, but you can prepare.' What does this mean for position sizing?",opts:["Hold only one stock — the one you know best","Always be 100% invested — market timing doesn't work","Hold enough cash to take advantage of opportunities when Mr. Market panics","Diversify equally across 100 stocks to eliminate specific risk"],ans:2,explain:"Marks' point: you can't know when markets will panic, but you can have dry powder ready when they do. The best value opportunities appear in crises — when forced sellers create irrationally low prices. A value investor holding 15–20% cash during expensive markets is positioned to deploy aggressively when opportunities arise. This is structural preparation, not market timing."},
+  {q:"What is the 'net-net' Graham screen and how is it calculated?",opts:["Net earnings minus net debt — a measure of true profitability","Net Current Asset Value (Current Assets − Total Liabilities) — buy below 2/3 of this","Net income minus capex — the true owner earnings figure","Net profit margin minus net debt margin"],ans:1,explain:"NCAV = Current Assets − Total Liabilities. Graham's most aggressive screen: buy when market cap < 2/3 × NCAV. You're buying for less than the cash, receivables, and inventory alone — after subtracting ALL liabilities. This is rare today and mostly found in micro-cap or distressed situations. When Graham ran it in the 1950s, many such opportunities existed. Walter Schloss made a career of it."},
+];
+
+let qIdx=0,answered=false;
+function renderQuiz(){
+  const q=QUIZ[qIdx];
+  answered=false;
+  document.getElementById('quiz-content').innerHTML=`
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQ(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+    </div>
+    <div class="quiz-explain" id="qexplain">${q.explain}</div>
+    <div class="quiz-nav">
+      <button class="quiz-nav-btn" onclick="prevQ()">← Previous</button>
+      <span class="quiz-counter">Question ${qIdx+1} of ${QUIZ.length}</span>
+      <button class="quiz-nav-btn" onclick="nextQ()">Next →</button>
+    </div>
+  `;
+}
+function answerQ(i){
+  if(answered)return;answered=true;
+  const q=QUIZ[qIdx];
+  document.querySelectorAll('.quiz-opt').forEach((b,j)=>{
+    if(j===q.ans)b.classList.add('correct');
+    else if(j===i&&i!==q.ans)b.classList.add('wrong');
+    b.disabled=true;
+  });
+  document.getElementById('qexplain').classList.add('show');
+}
+function nextQ(){qIdx=(qIdx+1)%QUIZ.length;renderQuiz();}
+function prevQ(){qIdx=(qIdx-1+QUIZ.length)%QUIZ.length;renderQuiz();}
+renderQuiz();
+
+// CHECKLIST
+const CL=[
+  {t:"Understand the business model clearly",s:"Can you explain in 2 sentences how it makes money?"},
+  {t:"Verify it's within your circle of competence",s:"Do you understand the industry dynamics?"},
+  {t:"Check Graham Screen #5 — net-net or P/B < 1.5x",s:"Is the stock statistically cheap on assets?"},
+  {t:"Calculate and check P/E vs 10-year normalized earnings",s:"Not just trailing 12-month EPS"},
+  {t:"Review 10 years of ROIC",s:"Has it consistently exceeded cost of capital?"},
+  {t:"Analyze FCF vs Net Income for 5+ years",s:"Persistent gap = earnings quality concern"},
+  {t:"Check DSO trend",s:"Rising DSO signals potential revenue manipulation"},
+  {t:"Calculate debt/equity and current ratio",s:"Graham: D/E < 1.0, Current ratio > 2.0"},
+  {t:"Identify the economic moat (or lack thereof)",s:"What stops a competitor from copying this business?"},
+  {t:"Read the last 3 annual reports fully",s:"Including footnotes and MD&A"},
+  {t:"Review management track record on capital allocation",s:"Acquisitions at rational prices? Buybacks when cheap?"},
+  {t:"Check insider ownership and recent transactions",s:"Management should own significant equity"},
+  {t:"Build the bull case — what does the market underestimate?",s:"Your variant perception"},
+  {t:"Build the bear case — what could go wrong?",s:"Inversion — list every failure mode"},
+  {t:"Calculate your intrinsic value with 3 methods",s:"DCF + Comps + Asset-based"},
+  {t:"Verify margin of safety > 33%",s:"Graham's minimum. More for uncertain businesses."},
+  {t:"Check for macro headwinds to this business",s:"Rates, tariffs, cycle position, regulatory"},
+  {t:"Look for special situation catalyst (if any)",s:"Spinoff, buyout, restructuring, management change"},
+  {t:"Size the position per conviction and uncertainty",s:"Higher uncertainty → smaller position"},
+  {t:"Write the investment thesis in 1 page",s:"If you can't write it clearly, you don't understand it"},
+];
+function renderCL(){
+  const saved=JSON.parse(localStorage.getItem('vi-checklist')||'{}');
+  const done=Object.values(saved).filter(Boolean).length;
+  document.getElementById('prog-bar').style.width=Math.round(done/CL.length*100)+'%';
+  document.getElementById('cl-progress').textContent=done+' of '+CL.length+' completed';
+  document.getElementById('checklist-list').innerHTML=CL.map((c,i)=>`
+    <div class="check-item ${saved[i]?'done':''}" onclick="toggleCL(${i})">
+      <div class="check-box">${saved[i]?'✓':''}</div>
+      <div><div class="check-text">${c.t}</div><div class="check-sub">${c.s}</div></div>
+    </div>
+  `).join('');
+}
+function toggleCL(i){
+  const s=JSON.parse(localStorage.getItem('vi-checklist')||'{}');
+  s[i]=!s[i];localStorage.setItem('vi-checklist',JSON.stringify(s));renderCL();
+}
+renderCL();
+</script>
+</body>
+</html>
